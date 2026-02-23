@@ -148,4 +148,31 @@ But ,Practically to get same vaue of  ID ≈ 200µA in simulation, width increas
 
 W ≈ 1.534 µm  
 
-As per the 
+As from the current equation w is directly proportional to ID
+- If width increases, current increases
+- If length increases, current decreases because resistance increases(Inversely  proportional)
+
+### DC Operating Point :
+<img width="752" height="409" alt="Screenshot 2026-02-23 215346" src="https://github.com/user-attachments/assets/f11c016c-4d4b-46da-b8bd-da58a2c326c7" />
+
+VDS ≈ 0.75 V
+
+Check saturation:
+
+VGS ≥ Vth
+VDS ≥ VGS − Vth
+
+Condition satisfied → MOSFET in saturation 
+
+# DC Sweep Analysis
+DC Sweep is an analysis in LTspice (or any circuit simulator) where the DC value of a voltage source or current source is varied gradually over a specified range.
+For each step, the simulator calculates the circuit’s DC operating point.
+
+In MOSFET circuits, performing a DC sweep of VGS helps in:
+
+- Identifying the threshold voltage
+- Observing how drain current (ID) changes
+- Locating saturation, cutoff, and triode regions
+- Choosing the correct bias point (Q-point) for amplification
+<img width="1355" height="824" alt="image" src="https://github.com/user-attachments/assets/09ecef02-00ed-46ee-ac1f-cc041fe169d5" />
+
