@@ -55,3 +55,4 @@ When an external **load capacitor** is added, the bandwidth reduces further, ill
 
 
 
+
