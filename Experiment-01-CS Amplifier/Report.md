@@ -52,7 +52,7 @@ These capacitances influence the high-frequency performance, introducing poles a
 When an external **load capacitor** is added, the bandwidth reduces further, illustrating the typical gain-bandwidth trade-off encountered in analog design.
 
 # Circuit
-<img width="940" height="724" alt="Screenshot 2026-02-23 215322" src="https://github.com/user-attachments/assets/1583e800-84df-4879-8fbe-2a748daf92cc" />
+<img width="944" height="673" alt="image" src="https://github.com/user-attachments/assets/6b468354-6584-4def-8bd5-b56879ae2611" />
 
 # Device Parameters (Extracted from MOSFET Specifications)
 
@@ -156,7 +156,7 @@ As from the current equation w is directly proportional to ID
 - If length increases, current decreases because resistance increases(Inversely  proportional)
 
 ### DC Operating Point :
-<img width="752" height="409" alt="Screenshot 2026-02-23 215346" src="https://github.com/user-attachments/assets/f11c016c-4d4b-46da-b8bd-da58a2c326c7" />
+<img width="807" height="483" alt="image" src="https://github.com/user-attachments/assets/f14887b1-8d4d-4f8a-9096-306e0d888bcc" />
 
 VDS ≈ 0.75 V
 
