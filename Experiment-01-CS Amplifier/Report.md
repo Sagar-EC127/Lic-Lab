@@ -126,8 +126,11 @@ RD = (1.5 − 0.75) / 200µA
 RD = 3.75 kΩ
 
 ### For Saturation Region :
-VDS ​≥ VGS ​− VTH​
-0.75 ​≥ VGS ​− 0.36
+
+VDS ​≥ VGS ​− VTH
+
+​0.75 ​≥ VGS ​− 0.36
+
  VGS ​≤ 1.11 V
 
  Using MOSFET Current  equation (In Saturation Region) : 
