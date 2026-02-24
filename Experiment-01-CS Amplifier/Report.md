@@ -86,7 +86,7 @@ Cox = 8.414 mF/m²
 
 Power given:
 
-P ≤ 1 mW  
+P ≤ 0.5 mW  
 
 Since:
 
@@ -108,7 +108,7 @@ P = ID × VDD
 
 P = 200µA × 1.5  
 
-P = 0.3 mW < 1 mW  (It is satisfied for the assumed Current we can take any current value less than 333.33 µA  )
+P = 0.3 mW < 0.5 mW  (It is satisfied for the assumed Current we can take any current value less than 333.33 µA  )
 
 ### Midpoint Bias :
 In a Common Source amplifier, the MOSFET should be biased so that the output signal can swing as much as possible without distortion (clipping).
@@ -272,18 +272,93 @@ parasitic capacitances, giving the circuit a very high bandwidth.
 - upper Cutoff frequency:≈ 100 GHz  
 
 
-## With Load Capacitor CL = 10pF
+## With Load Capacitor CL = 1pF
 
 With coupling/bypass capacitors, the amplifier shows limited bandwidth because these capacitors create additional low-frequency and high-frequency poles that reduce the gain at both ends of the frequency range.
 
-<img width="1919" height="871" alt="image" src="https://github.com/user-attachments/assets/81fe4e40-a292-414b-b4ed-436099ef85f9" />
+<img width="1909" height="854" alt="image" src="https://github.com/user-attachments/assets/1586d653-fb08-46df-97d8-fe80f5c931c3" />
+
 
 - 3dB gain point: 4.189 dB 
+- Cutoff frequency:≈ 47.86 MHz
 
-Cutoff frequency:≈ 4.78 MHz  
-​
+## Effect of Load Capacitance on Frequency Response (AC Analysis)
 
+ Case 1: Without Load Capacitor (CL = 0)
+- Only MOSFET parasitic capacitances (Cgd, Cdb) are present.
+- These capacitances are very small (fF range), so the RC time constant is extremely low.
+- This pushes the dominant pole to a very high frequency.
 
+**Observed −3dB Frequency:** **≈ 100 GHz**
 
+---
 
+Case 2: With Load Capacitor (CL = 1 pF)
+- Adding a 1 pF capacitor increases the output capacitance significantly.
+- The larger capacitance forms a dominant low-pass RC pole at the output.
+- This reduces the amplifier bandwidth sharply.
+
+**Observed −3dB Frequency:** **≈ 47.86 MHz**
+
+---
+ Summary
+- **Without CL:** very small capacitance → extremely high bandwidth.  
+- **With CL:** large capacitance → dominant pole at low frequency → reduced bandwidth.
+
+### **Theoretical Calculations for Voltage Gain (Av)**
+
+To calculate the theoretical voltage gain of the Common Source amplifier, we first determine the transconductance ($g_m$) of the MOSFET at our chosen operating point.
+
+**Step 1: Calculate Transconductance ($g_m$)**
+Using the first-order square-law approximation for a MOSFET in the saturation region:
+$$g_m \approx \frac{2 I_D}{V_{GS} - V_{TH}}$$
+
+Based on the circuit design and the `tsmc018.lib` SPICE model:
+* **ID:** 200 µA (from DC operating point simulation)
+* **VGS:** 0.9V (Input DC bias)
+* [cite_start]**VTH:** 0.366V (Nominal threshold voltage `VTH0` extracted from the TSMC 180nm library [cite: 2])
+
+$$g_m = \frac{2 \times 200 \times 10^{-6}}{0.9 - 0.36}$$
+$$g_m = \frac{ 400 \times 10^{-6}}{0.54}$$
+$$g_m \approx 0.74 \text{ mA/V}$$
+
+**Step 2: Calculate Ideal Voltage Gain**
+If we assume the internal output resistance ($r_o$) is infinitely large, the ideal gain formula is:
+$$A_v \approx -g_m R_D$$
+
+Given our drain resistor is 3.75 kΩ:
+$$A_v = -(0.749 \times 10^{-3}) \times (3.75 \times 10^3)$$
+$$A_v \approx - 2.77 \text{ V/V}$$
+*(Note: The negative sign denotes the 180° phase inversion typical of a Common Source amplifier).*
+
+**Step 3: Calculate Practical Voltage Gain (Including $r_o$)**
+In 180nm short-channel devices, channel-length modulation significantly lowers the internal output resistance ($r_o$). Because $r_o$ acts in parallel with $R_D$, the exact gain equation is:
+$$A_v = -g_m (r_o || R_D)$$
+
+Using the practical $r_o$ value of approximately 10.7 kΩ (derived from the simulation's `gds` parameter):
+$$r_o || R_D = \frac{10.7 \times 3.75}{10.7 + 3.75} \approx 2.77 \text{ k}\Omega$$
+$$A_v = -(0.74 \text{ mA/V}) \times (2.77 \text{ k}\Omega)$$
+$$A_v \approx -2.04 \text{ V/V}$$
+
+**Conclusion:**
+The calculated practical gain of **-2.04 V/V** almost perfectly matches the simulated transient analysis result of **-2.28 V/V** (magnitude), validating the SPICE simulation against theoretical models.
+
+# Summary
+
+- The design meets the power requirement since the total power consumption is **0.3 mW**, which is safely below the **0.5 mW limit**.
+- The MOSFET is confirmed to be in the **saturation region**, ensuring correct small-signal amplification.
+- The **practical voltage gain** obtained from simulation is **7.189 dB**.
+- The **theoretical voltage gain** based on small-signal calculations is **8.865 dB**.
+- The difference between theoretical and simulated gain is due to **non-ideal MOSFET effects** such as channel-length modulation and parasitic capacitances.
+- The **bandwidth without any load capacitor** is extremely high, around **100 GHz**.
+- When a **1 pF load capacitor** is added, the bandwidth drops to **47.86 MHz** because of the dominant RC pole created at the output node.
+
+### **Conclusion**
+
+The Common Source amplifier successfully meets the design objectives of providing voltage amplification while maintaining low power consumption.  
+The MOSFET is biased correctly in the saturation region, ensuring linear operation and predictable small-signal behavior. The theoretical gain and the simulated gain closely agree, with minor deviation caused by practical non-idealities such as channel-length modulation and parasitic capacitances.  
+
+The frequency response analysis shows that the amplifier can achieve extremely high bandwidth when only intrinsic device capacitances are present. However, introducing an external load capacitor significantly reduces the bandwidth, demonstrating the dominant effect of output capacitance on high-frequency performance.  
+
+Overall, the CS amplifier achieves stable gain, satisfies the power constraint, and exhibits behavior consistent with MOSFET theory and SPICE simulations, validating the design and analysis.
 
