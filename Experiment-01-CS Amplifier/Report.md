@@ -261,6 +261,26 @@ These are the reasons why the Practical Gain < Theoretical Gain
 
 ## Without Load Capacitor	
 Since the circuit includes only MOSFET parasitic capacitances, the frequency response remains wide, resulting in high bandwidth
+<img width="1919" height="856" alt="Screenshot 2026-02-24 202846" src="https://github.com/user-attachments/assets/b62c94c0-a3f5-4ab0-afce-58a27ccbe2cd" />
+
+Without capacitors, the CS amplifier shows a flat gain because only resistive elements control 
+the midband response. The gain starts decreasing only at very high frequencies due to MOSFET 
+parasitic capacitances, giving the circuit a very high bandwidth.
+
+- 3dB gain:≈ 4.189dB  
+
+- upper Cutoff frequency:≈ 100 GHz  
+
+
+## With Load Capacitor CL = 10pF
+
+With coupling/bypass capacitors, the amplifier shows limited bandwidth because these capacitors create additional low-frequency and high-frequency poles that reduce the gain at both ends of the frequency range.
+
+<img width="1919" height="871" alt="image" src="https://github.com/user-attachments/assets/81fe4e40-a292-414b-b4ed-436099ef85f9" />
+
+- 3dB gain point: 4.189 dB 
+
+Cutoff frequency:≈ 4.78 MHz  
 ​
 
 
