@@ -179,3 +179,80 @@ In MOSFET circuits, performing a DC sweep of VGS helps in:
 - Choosing the correct bias point (Q-point) for amplification
 <img width="1355" height="824" alt="image" src="https://github.com/user-attachments/assets/09ecef02-00ed-46ee-ac1f-cc041fe169d5" />
 
+# Transient Analysis(Time-Domain Response)
+A 1 kHz AC sine wave was applied to the gate of the MOSFET to observe the dynamic behavior of the Common-Source (CS) amplifier. The transient simulation helps verify amplification, phase inversion, and time-domain linearity
+
+Input Signal (Vin)
+- Frequency : 1 kHz
+- Amplitude : 19.192 mV peak-to-peak
+- The signal is small enough to ensure that the MOSFET operates in the linear small-signal region around the bias point.
+<img width="1919" height="886" alt="Screenshot 2026-02-23 234318" src="https://github.com/user-attachments/assets/dc018d1e-6892-4918-baee-6a07140a3a80" />
+
+
+Output Signal (Vout)
+- Measured amplitude: 43.919 mV peak-to-peak
+- The waveform is inverted, confirming the expected 180° phase shift of a CS amplifier.
+- The output waveform shows no clipping or distortion, indicating proper biasing and stable operation.
+<img width="1915" height="884" alt="Screenshot 2026-02-23 234155" src="https://github.com/user-attachments/assets/1da65a4e-54e9-4310-84ab-e29bc6ff0e48" />
+
+
+Both input and output :
+- Input and output waveforms were displayed together for comparison.
+- Output amplitude is higher than input, indicating amplification.
+- Output is 180° out of phase, confirming inversion in the CS amplifier.
+- A small DC shift is present because of biasing.
+- Overall results verify that the Common-Source amplifier operates correctly.
+<img width="1906" height="863" alt="Screenshot 2026-02-23 234513" src="https://github.com/user-attachments/assets/21775d55-6ac5-4f67-b613-d0dd3ca0bbcc" />
+
+Caiculations :
+
+Vin(p-p) = 909.586 mV − 890.394 mV
+Vin(pp) = 19.192 mV
+
+Vout(p-p) = 769.445 mV − 725.526 mV
+Vout(p-p) = 43.919 mV
+
+Practical gain:
+
+Av = Vout / Vin
+
+Av = 43.919 / 19.192
+
+Av = 2.288 v/v
+
+Gain in dB:
+
+Av(dB) = 20 log(2.288)
+
+Av(dB) = 7.189 dB
+
+Theoretical Gain Calculation 
+
+For a CS amplifier, the small-signal voltage gain is given by:
+Av ​= − gm ​RD​
+Where:
+- 𝑔𝑚 = transconductance of MOSFET
+- 𝑅𝐷 = drain resistance
+- Negative sign indicates 180° phase inversion
+
+gm = 2ID / VGS − VTH
+gm = (2 × 200µA) / (0.9 − 0.36)
+
+gm = 0.74 mS
+
+Av = 0.74 × 10⁻³ × 3.75 × 10³
+
+Av = 2.775 v/v
+
+Gain in dB:
+
+20 log(2.775) = 8.865 dB
+
+	​
+
+	​
+
+
+
+
+
