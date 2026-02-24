@@ -248,9 +248,20 @@ Gain in dB:
 
 20 log(2.775) = 8.865 dB
 
-	​
+These are the reasons why the Practical Gain < Theoretical Gain 
 
-	​
+- Channel-length modulation reduces effective gain (finite output resistance r_o)
+- Loading effect decreases gain because the effective load is (R_D || R_L)
+- Parasitic resistances inside the MOSFET reduce the actual voltage gain
+- Biasing may not be ideal, causing the actual g_m to be lower than theoretical
+- Parasitic capacitances slightly reduce gain even at low frequencies
+- Measurement probe loading reduces the output amplitude	​
+
+# AC Analysis
+
+## Without Load Capacitor	
+Since the circuit includes only MOSFET parasitic capacitances, the frequency response remains wide, resulting in high bandwidth
+​
 
 
 
