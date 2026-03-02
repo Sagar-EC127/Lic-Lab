@@ -127,17 +127,20 @@ For NMOS:  VDS ≥ Vov
 For PMOS: VSD ≥ |Vov|
 
 Drain Current:
+
 ID = (1/2) μCox (W/L) (Vov)^2
 
 Transconductance:
+
 gm = 2ID / Vov
 
 Output Resistance:
 
 ro = 1 / (λID)
+
 ---
 
-## 5. PROCESS TRANSCONDUCTANCE PARAMETERS
+## 6. PROCESS TRANSCONDUCTANCE PARAMETERS
 
 ### NMOS:
 (calculated using Device Parameters(From Datasheet))
@@ -155,38 +158,38 @@ ro = 1 / (λID)
 
 μpCox = 0.011568 × 8.634 × 10⁻3  
 
-μpCox = 9.99 × 10⁻5 A/V²  
+μpCox = 9.99 × 10⁻5 A/V² 
 
-μpCox ≈ 100 µA/V²  
+μpCox ≈ 100 µA/V²
+
 ---
 
-## 6. WIDTH CALCULATIONS (L = 180 nm)
+## 7. WIDTH CALCULATIONS (L = 180 nm)
 
 Using:
 
-\[
-W = \frac{2 I_D L}{\mu C_{ox} (V_{OV})^2}
-\]
+ID = (1/2) μCox (W/L) (Vov)^2  
 
-### 6.1 NMOS Width
+Rearranging:
 
-\[
-W_n = \frac{2(200\mu)(180\times10^{-9})}{2.363\times10^{-4}(0.25)^2}
-\]
+W = (2 ID L) / [μCox (Vov)^2]
 
-\[
-W_n = 4.875\times10^{-6} = 4.87\ \mu m
-\]
+### 7.1 NMOS Width
 
-### 6.2 PMOS Width
+Wn = (2 × 200×10⁻6 × 180×10⁻9)   / [2.303×10⁻4 × (0.25)^2]
 
-\[
-W_p = \frac{2(200\mu)(180\times10^{-9})}{9.99\times10^{-5}(0.25)^2}
-\]
+Wn = (7.2 × 10⁻11) / (1.439 × 10⁻5)
 
-\[
-W_p = 1.153\times10^{-5} = 11.53\ \mu m
-\]
+Wn = 5.002 µm  
+
+
+### 7.2 PMOS Width
+
+Wp = (2 × 200×10⁻6 × 180×10⁻9)   / [9.735×10⁻5 × (0.25)^2]
+
+Wp = (7.2 × 10⁻11)  / (6.095 × 10⁻6)
+
+Wp = 11.83 µm  
 
 ---
 
@@ -194,8 +197,8 @@ W_p = 1.153\times10^{-5} = 11.53\ \mu m
 
 | Transistor | W (µm) | L (µm) | W/L |
 |------------|--------|--------|------|
-| NMOS | **4.87** | **0.18** | 27.05 |
-| PMOS | **11.53** | **0.18** | 64.06 |
+| NMOS | **5** | **0.18** | 27.777 |
+| PMOS | **11.83** | **0.18** | 65.722 |
 
 ### Key Notes:
 - PMOS width > NMOS width due to lower hole mobility.  
@@ -203,17 +206,3 @@ W_p = 1.153\times10^{-5} = 11.53\ \mu m
 
 ---
 
-# EXP2 – CIRCUIT 2A  
-## SOURCE-DEGENERATED COMMON SOURCE AMPLIFIER
-
-## **Design Objective (Rewritten Clean Version)**
-
-To design and simulate a source-degenerated Common Source amplifier using **TSMC 180nm MOSFETs**, ensuring:
-
-- A bias current of **200 µA**  
-- Supply voltage **VDD = 1.5 V**  
-- All transistors operate in saturation  
-- W/L ratios are obtained from physical parameter calculations  
-- The amplifier achieves stable gain and improved linearity using a source degeneration resistor  
-
----
