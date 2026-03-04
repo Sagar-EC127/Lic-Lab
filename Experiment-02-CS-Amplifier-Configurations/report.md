@@ -686,3 +686,70 @@ keeping all devices in saturation.
 | M1 | NMOS (Cascode) | **16.60718** |
 | M2 | NMOS (Bottom) | **16.60718** |
 | M3 | PMOS (Load) | **38.5** |
+
+-----------------------------------------
+## Transient Analysis 
+
+ # Input Waveform
+
+ <img width="1916" height="928" alt="Screenshot 2026-03-01 102857" src="https://github.com/user-attachments/assets/8568b85a-ae4d-423a-8b93-730aa312dc55" />
+
+# Output Waveform
+
+<img width="1913" height="875" alt="Screenshot 2026-03-01 103142" src="https://github.com/user-attachments/assets/38d263bd-6630-4f08-92cd-da4371debe6a" />
+
+# Input & Output (Combined)
+
+<img width="1911" height="863" alt="Screenshot 2026-03-01 103214" src="https://github.com/user-attachments/assets/208f7956-02b7-4bef-b1a9-506db2891e07" />
+
+### Practical Gain from Transient Waveform
+
+Peak-to-peak voltages were obtained from LTspice cursor measurements.
+
+| Signal | Maximum | Minimum | Peak-to-Peak |
+|------|--------|--------|-------------|
+| Vin | 919.53398 mV | 900.45526 mV | **0.01908 V** |
+| Vout | 1.0722513 V | 1.0396893 V | **0.03256 V** |
+
+### Voltage Gain
+
+| Calculation | Result |
+|-------------|--------|
+| Av = Vout(p-p) / Vin(p-p) | 0.03256 / 0.01908 |
+| Voltage Gain | **1.71 V/V** |
+
+### Gain in dB
+
+| Calculation | Result |
+|-------------|--------|
+| Av(dB) = 20 log₁₀(1.71) | **4.66 dB** |
+
+
+# AC Analysis
+
+# Frequency Response 
+
+To determine midband gain and bandwidth,
+small-signal AC analysis was performed.
+
+# AC Analysis
+
+## – Frequency Response (Circuit 2B)
+
+To determine midband gain and bandwidth,
+small-signal AC analysis was performed.
+
+# AC Analysis
+
+## – Frequency Response (Circuit 2B)
+
+To determine midband gain and bandwidth,
+small-signal AC analysis was performed.
+
+<img width="1913" height="863" alt="Screenshot 2026-03-01 103846" src="https://github.com/user-attachments/assets/565df979-5709-4dc7-a598-20536256cd45" />
+
+### Frequency Response Results
+
+| Maximum Gain | −3 dB Gain | −3 dB Frequency |
+|--------------|------------|----------------|
+| **4.643 dB** | **1.643 dB** | **277.41 MHz** |
