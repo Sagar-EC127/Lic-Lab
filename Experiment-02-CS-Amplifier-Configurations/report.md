@@ -732,20 +732,6 @@ Peak-to-peak voltages were obtained from LTspice cursor measurements.
 To determine midband gain and bandwidth,
 small-signal AC analysis was performed.
 
-# AC Analysis
-
-## – Frequency Response (Circuit 2B)
-
-To determine midband gain and bandwidth,
-small-signal AC analysis was performed.
-
-# AC Analysis
-
-## – Frequency Response (Circuit 2B)
-
-To determine midband gain and bandwidth,
-small-signal AC analysis was performed.
-
 <img width="1913" height="863" alt="Screenshot 2026-03-01 103846" src="https://github.com/user-attachments/assets/565df979-5709-4dc7-a598-20536256cd45" />
 
 ### Frequency Response Results
@@ -753,3 +739,8 @@ small-signal AC analysis was performed.
 | Maximum Gain | −3 dB Gain | −3 dB Frequency |
 |--------------|------------|----------------|
 | **4.643 dB** | **1.643 dB** | **277.41 MHz** |
+
+---------
+## Theoretical Gain
+
+
