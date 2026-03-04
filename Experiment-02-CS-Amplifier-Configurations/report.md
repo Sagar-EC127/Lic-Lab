@@ -191,57 +191,60 @@ The circuit was implemented and simulated using LTspice. Appropriate MOSFET sizi
 
 ---
 
-## Conditions for Saturation Operation
+## Saturation Region Requirements
 
-For proper amplification, both MOSFETs must operate in the **saturation region**.
+For a MOSFET amplifier to function correctly, both transistors must remain in the **saturation region**.  
+Operating in this region ensures that the drain current mainly depends on the gate voltage rather than the drain voltage, which is essential for achieving stable amplification.
 
 | Parameter | Minimum Requirement | Maximum Limit | Purpose |
 |-----------|--------------------|---------------|---------|
-| VGS (NMOS) | ≥ VTHn = 0.36 V | ≤ VDD | Channel formation |
-| VDS (NMOS) | ≥ Vov | ≤ VDD | Maintain saturation |
-| VSG (PMOS) | ≥ \|VTHp\| = 0.39 V | ≤ VDD | PMOS conduction |
-| VSD (PMOS) | ≥ Vov | ≤ VDD | Saturation condition |
+| VGS (NMOS) | ≥ VTHn = 0.36 V | ≤ VDD | Enables channel formation |
+| VDS (NMOS) | ≥ Vov | ≤ VDD | Ensures saturation operation |
+| VSG (PMOS) | ≥ \|VTHp\| = 0.39 V | ≤ VDD | Allows PMOS conduction |
+| VSD (PMOS) | ≥ Vov | ≤ VDD | Maintains saturation |
 
 ---
 
-# Selection of Drain–Source Voltage
+# Drain–Source Voltage Selection
 
-To allow **maximum symmetrical output swing**, the transistor is biased at approximately half of the supply voltage.
+To maximize the usable output range of the amplifier, the drain–source voltage is chosen close to the midpoint of the supply voltage.
 
 | Calculation | Result |
 |-------------|--------|
 | VDS = VDD / 2 | 1.5 / 2 |
 | VDS | **0.75 V** |
 
-### Reason
+### Explanation
 
-Placing the operating point near **mid-supply voltage** allows equal headroom for positive and negative signal variations.
+Positioning the operating point near half of the supply voltage provides balanced voltage headroom in both directions.  
+This allows the output signal to vary without entering cutoff or triode regions.
 
 ---
 
-# Source Voltage Selection
+# Source Voltage Choice
 
-A small source voltage is introduced using a **source resistor** to improve bias stability.
+A small voltage drop is introduced at the source terminal through a resistor.  
+This approach improves bias stability and reduces sensitivity to parameter variations.
 
 | Parameter | Value |
 |-----------|------|
 | VS | **0.2 V** |
 
-### Explanation
+### Design Considerations
 
 | Reason | Description |
 |------|-------------|
-| VS > 0 | Provides source degeneration |
-| VS << VDD | Maintains drain voltage headroom |
-| Current stabilization | Increase in current raises VS and reduces VGS |
+| Positive VS | Introduces local feedback |
+| Small magnitude | Prevents loss of voltage swing |
+| Bias stabilization | Variations in current automatically adjust VGS |
 
-Thus **VS = 0.2 V** ensures stable biasing.
+Therefore, **VS = 0.2 V** provides a good balance between stability and voltage headroom.
 
 ---
 
-# Output Voltage Determination
+# Output Voltage Calculation
 
-The drain voltage (output node) is obtained from the relation
+The output voltage corresponds to the drain node voltage and is related to the drain–source voltage.
 
 VDS = Vout − VS
 
@@ -252,34 +255,42 @@ VDS = Vout − VS
 
 ---
 
-# Source Resistor Value
+# Source Resistor Determination
 
-The source resistor is calculated using Ohm’s law.
+The required source resistance is obtained from the selected source voltage and desired drain current.
 
 | Calculation | Result |
 |-------------|--------|
 | RS = VS / ID | 0.2 / (200 × 10⁻⁶) |
 | RS | **1 kΩ** |
 
+This resistor sets the source voltage and helps maintain a constant current.
+
 ---
 
-# NMOS Gate Voltage
+# NMOS Gate Bias
+
+The gate voltage is determined from the threshold voltage and chosen overdrive voltage.
 
 | Calculation | Result |
 |-------------|--------|
 | VGS = VTH + Vov = 0.36 + 0.25 | **0.61 V** |
 | VG = VGS + VS = 0.61 + 0.2 | **0.81 V** |
 
+This gate voltage ensures the NMOS operates with the desired current level.
+
 ---
 
-# Verification of Overdrive Voltage
+# Overdrive Voltage Verification
+
+The overdrive voltage determines the strength of inversion and the current capability of the device.
 
 | Calculation | Result |
 |-------------|--------|
 | VGS = VG − VS = 0.81 − 0.2 | **0.61 V** |
 | Vov = VGS − VTH = 0.61 − 0.36 | **0.25 V** |
 
-### Valid Overdrive Range
+### Acceptable Overdrive Range
 
 | Minimum Vov | Maximum Vov |
 |-------------|-------------|
@@ -289,35 +300,41 @@ Thus
 
 0 < Vov < 0.75
 
-The obtained value **Vov = 0.25 V** lies within this range.
+The selected value **Vov = 0.25 V** falls within this acceptable region.
 
-### Justification
+### Design Insight
 
-A moderate overdrive voltage:
+A moderate overdrive voltage is desirable because it:
 
-• ensures adequate transconductance  
-• maintains stable drain current  
-• provides sufficient voltage headroom
+• improves transconductance  
+• maintains controlled drain current  
+• keeps sufficient voltage margin for signal swing
 
 ---
 
 # PMOS Gate Voltage
+
+The PMOS gate voltage is calculated using the required source–gate voltage.
 
 | Calculation | Result |
 |-------------|--------|
 | VSG = Vov + \|VTHp\| = 0.25 + 0.39 | **0.64 V** |
 | VGp = VDD − VSG = 1.5 − 0.64 | **0.86 V** |
 
+This bias ensures that the PMOS transistor supplies the required current.
+
 ---
 
 # Saturation Verification
+
+To confirm correct operation, both devices must satisfy their respective saturation conditions.
 
 | Device | Condition | Verification |
 |-------|-----------|--------------|
 | NMOS | VDS ≥ Vov | 0.75 ≥ 0.25 ✔ |
 | PMOS | VSD ≥ Vov | 0.55 ≥ 0.25 ✔ |
 
-Both MOS transistors operate in the **saturation region**.
+Since these conditions are satisfied, both MOSFETs operate in the **saturation region**, enabling proper amplification.
 
 ---
 
@@ -327,7 +344,7 @@ Both MOS transistors operate in the **saturation region**.
 |----|-----|------|----|-----|----|----|----|
 | 0.2 V | 0.75 V | 0.95 V | 0.81 V | 0.86 V | 200 µA | 1 kΩ | 0.25 V |
 
-The selected operating point keeps both transistors in saturation and allows sufficient voltage swing for proper amplifier operation.
+This bias configuration establishes a stable operating point where both transistors remain in saturation while allowing adequate voltage headroom for the output signal.
 
 <img width="685" height="560" alt="image" src="https://github.com/user-attachments/assets/5342b604-c9c2-4a94-a175-8fe8617086b2" />
 
@@ -346,3 +363,42 @@ During simulation, the widths were adjusted slightly to achieve the desired drai
 
 Increasing the transistor width improves the current conduction capability of the device.  
 Thus, small adjustments in width were made until the circuit produced the expected **drain current of approximately 200 µA** while maintaining correct bias conditions.
+
+---
+
+# Transient Analysis – Circuit 2A  
+(Source Degenerated Common Source Amplifier)
+
+The dynamic behavior of the amplifier was examined using **transient analysis** in LTspice.  
+A small sinusoidal signal was applied to the **gate terminal** while maintaining the required DC bias so that the MOSFET operates around its designed operating point.
+
+---
+
+## Applied Input Signal
+
+| Signal Type | Frequency | Amplitude | DC Bias |
+|-------------|-----------|-----------|--------|
+| Sinusoidal | 1 kHz | 10 mV | 0.81 V |
+
+---
+
+## LTspice Input Source
+
+The input voltage source used in the simulation is defined as:
+
+Vin = SINE(0.81 10m 1k)
+
+---
+
+## Explanation
+
+The **DC offset (0.81 V)** represents the gate bias voltage obtained from the DC analysis.  
+This bias ensures that the transistor operates at the desired operating point with  
+**drain current approximately equal to 200 µA**.
+
+A small AC amplitude of **10 mV** is applied so that the amplifier operates in the **linear small-signal region**, allowing the output waveform to accurately represent the gain characteristics of the circuit.
+
+## Input Waveform
+
+<img width="1913" height="881" alt="inp 1" src="https://github.com/user-attachments/assets/fe077139-7bf3-40b2-8205-520ba746648a" />
+
