@@ -535,3 +535,154 @@ The small difference between theoretical and simulated values arises because
 analytical calculations consider simplified device models, whereas LTspice
 accounts for practical effects such as **channel-length modulation and other
 non-ideal MOSFET parameters**.
+
+-----------------------------------------------------------------------------------
+### EXP2- CIRCUIT 2B – Common Source – Cascode Amplifier with Active Load
+-----------------------------------------------------------------------------------
+### Circuit Implementation in LTspice
+
+
+<img width="894" height="813" alt="Screenshot 2026-03-01 102526" src="https://github.com/user-attachments/assets/00e1a399-5384-4141-82b5-e61cc5112627" />
+
+## DC Bias Analysis – Circuit 2B (Cascode Amplifier)
+
+### Design Parameters
+
+| Parameter | Value |
+|-----------|------|
+| Supply Voltage (VDD) | 1.5 V |
+| Drain Current (ID) | 200 µA |
+| Overdrive Voltage (Vov) | 0.25 V |
+| NMOS Threshold Voltage (VTHn) | 0.36 V |
+| PMOS Threshold Voltage (VTHp) | −0.39 V |
+
+---
+
+# Bottom NMOS (M2)
+
+The lower NMOS transistor establishes the required bias current.
+
+| Parameter | Calculation | Value |
+|-----------|-------------|------|
+| VGS2 | VTHn + Vov | 0.36 + 0.25 = **0.61 V** |
+| Gate Voltage | Bias value | **0.61 V** |
+| Source Voltage | Ground | **0 V** |
+| Drain Voltage | VS1 | **0.30 V** |
+| VDS2 | VD2 − VS2 | **0.30 V** |
+
+### Saturation Verification
+
+| Condition | Result |
+|-----------|--------|
+| VDS2 ≥ Vov | 0.30 ≥ 0.25 ✔ |
+
+Thus **M2 operates in saturation**.
+
+---
+
+# Cascode NMOS (M1)
+
+The cascode transistor increases output resistance and improves gain.
+
+| Parameter | Calculation | Value |
+|-----------|-------------|------|
+| Gate Voltage | Given | **0.91 V** |
+| Source Voltage | VS1 | **0.30 V** |
+| VGS1 | VG1 − VS1 | 0.91 − 0.30 = **0.61 V** |
+
+The output node voltage is selected using
+
+Vout = VDS1 + VS1
+
+| Parameter | Calculation | Value |
+|-----------|-------------|------|
+| VDS1 | VDD / 2 | 1.5 / 2 = **0.75 V** |
+| Vout | 0.75 + 0.30 | **1.05 V** |
+| VDS1 (check) | Vout − VS1 | **0.75 V** |
+
+### Saturation Verification
+
+| Condition | Result |
+|-----------|--------|
+| VDS1 ≥ Vov | 0.75 ≥ 0.25 ✔ |
+
+Hence **M1 remains in saturation**.
+
+---
+
+# PMOS Active Load (M3)
+
+The PMOS transistor provides the load current for the cascode stage.
+
+| Parameter | Calculation | Value |
+|-----------|-------------|------|
+| Source Voltage | VDD | **1.5 V** |
+| Gate Voltage | Given | **0.91 V** |
+| VSG3 | VS − VG | 1.5 − 0.91 = **0.59 V** |
+
+| Parameter | Calculation | Value |
+|-----------|-------------|------|
+| VSD3 | VS − Vout | 1.5 − 1.05 = **0.45 V** |
+
+### Saturation Verification
+
+| Condition | Result |
+|-----------|--------|
+| VSD3 ≥ Vov | 0.45 ≥ 0.25 ✔ |
+
+Thus **PMOS load operates in saturation**.
+
+---
+
+# Final DC Node Voltages
+
+| Node | Voltage |
+|-----|--------|
+| VS2 | 0 V |
+| VS1 | 0.30 V |
+| Vout | 1.05 V |
+
+All transistors satisfy the **saturation condition**, ensuring correct operation of the cascode amplifier.
+
+### Selection of Source Voltage (VS1)
+
+For proper cascode operation, the lower NMOS must satisfy the
+saturation condition:
+
+VDS ≥ Vov
+
+| VS1 | VDS2 | Condition | Result |
+|----|------|-----------|--------|
+| 0.2 V | 0.2 V | 0.2 < 0.25 | NMOS enters triode (not suitable) |
+| 0.3 V | 0.3 V | 0.3 ≥ 0.25 | NMOS remains in saturation ✔ |
+
+Thus, **VS1 = 0.2 V is not sufficient**, while **VS1 ≥ 0.3 V**
+keeps the transistor in saturation and ensures proper
+operation of the cascode amplifier.
+
+###  LTspice Operating Point
+
+<img width="851" height="618" alt="Screenshot 2026-03-01 102338" src="https://github.com/user-attachments/assets/32720210-a40b-4fe7-8eb1-c30ffdbc2355" />
+
+### Width Calculation
+
+The transistor widths required to obtain the desired drain current  
+ID = 200 µA. were calculated using the square-law
+saturation current equation.
+
+| Device | Calculated Width (µm) |
+|-------|----------------------|
+| NMOS | **5** |
+| PMOS | **11.83** |
+
+### Practical Width Selection
+
+During LTspice simulation, the transistor widths were adjusted
+so that the circuit produces the required **ID ≈ 200 µA** while
+keeping all devices in saturation.
+
+| Transistor | Type | Width (µm) |
+|-----------|------|------------|
+| M1 | NMOS (Cascode) | **16.60718** |
+| M2 | NMOS (Bottom) | **16.60718** |
+| M3 | PMOS (Load) | **38.5** |
