@@ -178,7 +178,7 @@ The circuit was implemented and simulated using LTspice. Appropriate MOSFET sizi
 <img width="984" height="768" alt="Screenshot 2026-02-26 161121" src="https://github.com/user-attachments/assets/beee8f34-c559-4b10-a035-3eb624ac3197" />
 
 ---
-# DC Bias Analysis
+# DC Analysis
 
 ## Given Design Parameters
 
@@ -328,3 +328,21 @@ Both MOS transistors operate in the **saturation region**.
 | 0.2 V | 0.75 V | 0.95 V | 0.81 V | 0.86 V | 200 µA | 1 kΩ | 0.25 V |
 
 The selected operating point keeps both transistors in saturation and allows sufficient voltage swing for proper amplifier operation.
+
+<img width="685" height="560" alt="image" src="https://github.com/user-attachments/assets/5342b604-c9c2-4a94-a175-8fe8617086b2" />
+
+
+## Width Optimization – Circuit 2A
+
+The theoretical transistor widths provide an approximate starting point.  
+During simulation, the widths were adjusted slightly to achieve the desired drain current of **ID ≈ 200 µA** under realistic MOSFET model conditions.
+
+| Device | Initial Width (µm) | Adjusted Width (µm) | Justification |
+|------|------------------|------------------|--------------|
+| NMOS | 5 | 13.2 | The calculated width serves as an initial estimate. In practical simulations, parasitic effects and non-ideal device behavior slightly reduce the expected current. Therefore, the NMOS width was increased to obtain the required drain current close to 200 µA. |
+| PMOS | 11.83 | 37.5 | Since hole mobility in PMOS devices is lower than electron mobility in NMOS devices, a wider PMOS transistor is required to deliver the same current level. Hence, the PMOS width was increased during simulation to meet the target current. |
+
+### Design Insight
+
+Increasing the transistor width improves the current conduction capability of the device.  
+Thus, small adjustments in width were made until the circuit produced the expected **drain current of approximately 200 µA** while maintaining correct bias conditions.
