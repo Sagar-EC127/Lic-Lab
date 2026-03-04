@@ -478,4 +478,60 @@ The transient analysis shows that the amplifier produces an output
 signal approximately **10.33 times larger than the input signal**,
 confirming the amplification capability of the circuit.
 
+---
+# AC Analysis – Circuit 2A
 
+AC small-signal simulation was carried out to study the frequency behavior of the amplifier.  
+This analysis helps in determining how the circuit responds to signals at different frequencies and allows the evaluation of the **midband voltage gain** and overall **frequency response** of the amplifier.
+
+<img width="1919" height="878" alt="image" src="https://github.com/user-attachments/assets/169b761a-571a-45a1-827e-052f40c2cd90" />
+
+### Frequency Response Results
+
+| Midband Gain | −3 dB Gain | Bandwidth |
+|--------------|------------|-----------|
+| **20.278 dB** | **17.278 dB** | **315.183 MHz** |
+
+The AC analysis shows that the amplifier provides a midband gain of **20.278 dB**.  
+At the −3 dB point, the gain reduces to **17.278 dB**, and the measured bandwidth is **315.183 MHz**.
+
+## Theoretical Gain – Circuit 2A
+
+Small-signal parameters obtained from the LTspice operating point:
+
+| gm₁ | ro₁ | ro₂ | RS |
+|-----|-----|-----|----|
+| 1.6 mS | 25 kΩ | 25 kΩ | 1 kΩ |
+
+The gain of a **source-degenerated common source amplifier**
+with active load is given by:
+
+Av = - gm₁ / (1 + gm₁RS + RS/ro₁) × ([gm₁RSro₁ + RS + ro₁] ∥ ro₂)
+
+| Denominator | Output Resistance Term | Voltage Gain | Gain (dB) |
+|-------------|-----------------------|--------------|-----------|
+| 1 + 1.6 + (1k/25k) = **2.64** | ([gm₁RSro₁ + RS + ro₁] ∥ ro₂) = (40k + 1k + 25k) ∥ 25k ≈ **18.13 kΩ** | (1.6 mS / 2.64) × 18.13 kΩ ≈ **11 V/V** | 20 log₁₀(11) ≈ **20.8 dB** |
+
+For **TSMC 180 nm technology**, the channel-length modulation parameter
+λ typically lies in the range **0.1–0.2 V⁻¹**.
+
+Using
+
+ro = 1 / (λID)
+
+and choosing **λ = 0.2 V⁻¹** with **ID = 200 µA**,
+
+ro ≈ **25 kΩ**, which reduces the theoretical gain and makes it close
+to the gain obtained from **AC and transient simulations**.
+
+---
+### Observation
+From the AC analysis, the amplifier exhibits a midband gain of **20.278 dB**.  
+This value is close to the gain obtained from both the **theoretical calculation**
+and the **transient analysis**, indicating consistent amplifier performance.
+
+### Reason for Small Difference
+The small difference between theoretical and simulated values arises because
+analytical calculations consider simplified device models, whereas LTspice
+accounts for practical effects such as **channel-length modulation and other
+non-ideal MOSFET parameters**.
