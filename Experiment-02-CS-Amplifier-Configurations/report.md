@@ -402,3 +402,80 @@ A small AC amplitude of **10 mV** is applied so that the amplifier operates in t
 
 <img width="1913" height="881" alt="inp 1" src="https://github.com/user-attachments/assets/fe077139-7bf3-40b2-8205-520ba746648a" />
 
+The above waveform represents the sinusoidal input applied at the gate.
+
+---
+
+## Output Waveform
+
+
+<img width="1909" height="894" alt="op 1" src="https://github.com/user-attachments/assets/d73bb7bb-b74f-45af-906e-a1da86149ee9" />
+
+Since this is a **common source amplifier**, the output signal is inverted
+with respect to the input and exhibits a larger amplitude.
+
+## Input and Output Comparison
+
+<img width="1919" height="874" alt="ip op 1" src="https://github.com/user-attachments/assets/71175604-fd53-40b9-a184-a312b39696b8" />
+
+
+The combined waveform clearly shows amplification and the expected
+**180° phase inversion**.
+
+---
+# Practical Gain Calculation from Transient Waveform
+
+The voltage gain of the amplifier is determined using the cursor
+measurements obtained from the LTspice transient plot.
+
+---
+
+## Input Signal Measurement
+
+| Parameter | Value |
+|-----------|------|
+| Maximum Vin | 814.87795 mV |
+| Minimum Vin | 805.21089 mV |
+| Vin (Peak-to-Peak) | **9.667065 mV** |
+
+---
+
+## Output Signal Measurement
+
+| Parameter | Value |
+|-----------|------|
+| Maximum Vout | 1.0011576 V |
+| Minimum Vout | 901.27185 mV |
+| Vout (Peak-to-Peak) | **99.885744 mV** |
+
+---
+
+# Voltage Gain Calculation
+
+| Calculation | Result |
+|-------------|--------|
+| Av = Vout(p-p) / Vin(p-p) | 99.885744 mV / 9.667065 mV |
+| Voltage Gain (Av) | **10.33 V/V** |
+
+---
+
+# Gain in Decibels
+
+| Calculation | Result |
+|-------------|--------|
+| Gain (dB) = 20 log₁₀(Av) | 20 log₁₀(10.33) |
+| Gain (dB) | **20.28 dB** |
+
+---
+
+# Final Result
+
+| Vin(p-p) | Vout(p-p) | Gain (Av) | Gain (dB) |
+|----------|-----------|-----------|-----------|
+| 9.667065 mV | 99.885744 mV | **10.33 V/V** | **20.28 dB** |
+
+The transient analysis shows that the amplifier produces an output
+signal approximately **10.33 times larger than the input signal**,
+confirming the amplification capability of the circuit.
+
+
