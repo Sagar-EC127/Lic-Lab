@@ -891,7 +891,7 @@ To conduct the required current, the PMOS transistor must satisfy
 
 | Calculation | Result |
 |-------------|--------|
-| VSG2 = |VTHp| + VOV = 0.39 + 0.25 | **0.64 V** |
+| VSG2 = (VTHp + VOV) = 0.39 + 0.25 | **0.64 V** |
 
 Since the source of **M2** is tied to the supply
 
@@ -944,3 +944,42 @@ The diode-connected NMOS establishes the source voltage of **M1 at approximately
 
 <img width="854" height="608" alt="Screenshot 2026-03-10 002522" src="https://github.com/user-attachments/assets/38923257-f0fb-4176-9ef0-379769e01cd3" />
 
+## Width Selection 
+
+The transistor widths were first estimated from the **MOSFET saturation current equation** so that the circuit could achieve the required bias current of **ID ≈ 200 µA**.
+
+| Device | Theoretical Width | Practical Width (Simulation) |
+|------|------|------|
+| M1 (NMOS – Amplifier) | 5 µm | 19.35 µm |
+| M2 (NMOS – Active Load) | 15.95 µm | 60.75 µm |
+| M3 (PMOS – Diode Connected Current Source) | 11.83 µm | 41.65 µm |
+
+### Explanation
+
+The theoretical widths provide only an **initial estimate** because practical MOSFET behavior in circuit simulators differs from the ideal equations.
+
+| Practical Effect | Impact on Design |
+|------|------|
+| Short channel effects | Modify the effective current flowing through the device |
+| Device model parameters | Cause deviations from the ideal square-law relation |
+| Bias voltage sensitivity | Small voltage changes significantly influence the drain current |
+
+Hence, the transistor widths were **fine-tuned during LTspice simulation** until the circuit produced the required **bias current of approximately 200 µA** while ensuring all transistors remained in the **saturation region for proper amplifier operation**.
+
+---
+## Transient Analysis
+
+---
+### Input Waveform
+
+<img width="1919" height="858" alt="image" src="https://github.com/user-attachments/assets/659b3249-8413-4694-b17b-0f8213698e04" />
+
+---
+### Output Waveform
+
+<img width="1918" height="846" alt="image" src="https://github.com/user-attachments/assets/840720fd-ab82-4028-8f76-82f28955f54e" />
+
+---
+### Input & Output
+
+<img width="1907" height="863" alt="image" src="https://github.com/user-attachments/assets/d5fecae2-ae80-4b51-b92e-c300f022c820" />
