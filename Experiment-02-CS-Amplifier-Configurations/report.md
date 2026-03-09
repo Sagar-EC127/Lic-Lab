@@ -747,7 +747,7 @@ small-signal AC analysis was performed.
 Common Source Amplifier with Diode-Connected NMOS Current Source and PMOS Active Load
 -------------------------------------------------------------
 
-<img width="1197" height="761" alt="Screenshot 2026-03-09 233431" src="https://github.com/user-attachments/assets/32bc82f8-15c5-41a1-bbe4-364d71fa22d5" />
+<img width="1152" height="724" alt="image" src="https://github.com/user-attachments/assets/238f321f-1714-432e-a2f9-38f08a4c5a21" />
 
 ---
 # DC Analysis – Circuit 2C
@@ -794,17 +794,19 @@ The overdrive voltage (VOV) ensures that the MOSFET operates in the saturation r
 
 For the designed circuit,
 
-VDS ≈ **0.75 V**  *(approximately half of VDD = 1.5 V)*
+VDS ≈ **0.75 V** *(approximately half of VDD = 1.5 V)*
 
-Therefore, the allowable range becomes   0 < VOV < 0.75 V
+Therefore,
+
+0 < VOV < 0.75 V
 
 ### Design Justification
 
 A moderate value of overdrive voltage is selected because it offers several advantages:
 
-• It ensures adequate **transconductance (gm)** for proper amplification.  
-• It helps maintain a **stable drain current (ID)** during operation.  
-• It preserves enough **voltage headroom**, allowing the output signal to swing without driving the transistor out of saturation.
+• Provides sufficient **transconductance (gm)** for amplification  
+• Maintains a **stable drain current (ID)**  
+• Leaves enough **voltage headroom for signal swing**
 
 ---
 
@@ -814,89 +816,88 @@ For a diode-connected MOSFET, the **gate and drain are shorted**:
 
 VG = VD
 
-The source of **M3** is connected to ground, therefore
+The source of **M3** is connected to ground.
 
 | Node | Voltage |
 |------|--------|
 | VS3 | 0 V |
 
-Using the design bias point,
+Using the selected bias point,
 
 | Node | Voltage |
 |------|--------|
-| VG3 = VD3 | **0.6 V** |
+| VG3 = VD3 | **0.5 V** |
 
 Since this node is directly connected to the **source of M1**, we obtain
 
 | Node | Voltage |
 |------|--------|
-| VS1 | **0.6 V** |
+| VS1 | **0.5 V** |
 
 ### Justification
 
-The diode-connected NMOS sets a fixed bias voltage at the node where **VG3 = VD3 = VS1 = 0.6 V**.  
-This self-biasing action allows the transistor to regulate the current (≈200 µA) and provide a stable reference voltage for the amplifier stage.
+The diode-connected NMOS establishes a stable bias node where  
+**VG3 = VD3 = VS1 = 0.5 V**, allowing the circuit to maintain the required current (~200 µA).
 
----
 ---
 
 # DC Gate Bias for M1
 
-To maintain the desired drain current in **M1**, the required gate–source voltage is determined from the threshold and overdrive voltages.
+To maintain the required drain current in **M1**, the gate–source voltage must satisfy
 
 | Expression | Value |
 |-----------|-------|
 | VGS1 = VTH + VOV = 0.36 + 0.25 | **0.61 V** |
 
-The source of **M1** is already biased at
+Since
 
-VS1 = **0.6 V**
+VS1 = **0.5 V**
 
-Therefore the gate voltage required is
+the gate voltage becomes
 
 | Expression | Value |
 |-----------|-------|
-| VG1 = VS1 + VGS1 = 0.6 + 0.61 | **1.21 V** |
+| VG1 = VS1 + VGS1 = 0.5 + 0.61 | **1.11 V** |
 
-Hence, the **DC input bias voltage** for the circuit is approximately
+Therefore,
 
-**VIN(DC) ≈ 1.21 V**
+**VIN(DC) ≈ 1.11 V**
 
-This bias ensures that **M1 operates in saturation while carrying the desired current.**
+This bias keeps **M1 operating in saturation**.
 
 ---
 
 # Output Voltage Selection
 
-For achieving **maximum symmetrical signal swing**, the drain–source voltage is typically chosen near half of the supply voltage.
+For maximum symmetrical signal swing,
 
 | Calculation | Result |
 |-------------|--------|
 | VDS ≈ VDD / 2 = 1.5 / 2 | **0.75 V** |
 
-Therefore, the output voltage at the drain of **M1** becomes
+Thus the output voltage is
 
 | Calculation | Result |
 |-------------|--------|
-| Vout = VDS + VS1 = 0.75 + 0.6 | **≈ 1.35 V** |
+| Vout = VDS + VS1 = 0.75 + 0.5 | **≈ 1.25 V** |
 
-This bias point allows sufficient headroom for the output signal to swing while keeping the transistor in the **saturation region**.
+This operating point allows adequate output swing while maintaining saturation.
 
 ---
 
 # Biasing of PMOS Active Load (M2)
 
-For the PMOS load transistor to conduct the required current, its source–gate voltage must satisfy the threshold and overdrive requirement.
+To conduct the required current, the PMOS transistor must satisfy
 
 | Calculation | Result |
 |-------------|--------|
 | VSG2 = |VTHp| + VOV = 0.39 + 0.25 | **0.64 V** |
 
-The source of **M2** is tied to the supply voltage
+Since the source of **M2** is tied to the supply
 
 VS2 = **VDD = 1.5 V**
 
-Hence the gate voltage is
+the gate voltage becomes
 
 | Calculation | Result |
 |-------------|--------|
@@ -904,10 +905,42 @@ Hence the gate voltage is
 
 ## Drain–Source Voltage of M2
 
-Using the previously selected output voltage:
+Using the calculated output voltage,
 
 | Calculation | Result |
 |-------------|--------|
-| VSD2 = VS2 − Vout = 1.5 − 1.35 | **0.15 V** |
+| VSD2 = VS2 − Vout = 1.5 − 1.25 | **0.25 V** |
 
-This biasing keeps the PMOS transistor operating as an **active load** while allowing proper current flow through the amplifier.
+This ensures the PMOS transistor operates as an **active load**.
+
+---
+
+# Saturation Region Verification
+
+To ensure proper amplifier operation, each transistor must satisfy the **saturation condition**.
+
+| Device | Saturation Condition | Calculated Value | Result |
+|------|----------------------|------------------|--------|
+| M1 (NMOS) | VDS ≥ VOV | 0.75 ≥ 0.25 | ✔ Saturation |
+| M3 (NMOS) | VDS ≥ VOV | 0.50 ≥ 0.25 | ✔ Saturation |
+| M2 (PMOS) | VSD ≥ VOV | 0.25 ≥ 0.25 | ✔ Saturation |
+
+### Conclusion
+
+All three transistors **M1, M2, and M3** satisfy the required saturation condition.  
+Therefore, the circuit operates correctly with all devices biased in the **saturation region**, which is necessary for proper amplifier operation.
+
+---
+# Final DC Operating Point
+
+| VS1 | Vout | VG1 | VG2 | ID | VOV |
+|----|----|----|----|----|----|
+| 0.5 V | 1.25 V | 1.11 V | 0.86 V | 200 µA | 0.25 V |
+
+The diode-connected NMOS establishes the source voltage of **M1 at approximately 0.5 V**, which sets the proper gate bias and maintains the required drain current. This biasing ensures stable circuit operation while keeping the transistors within their intended operating region.
+
+---
+### LTspice Operating Point
+
+<img width="854" height="608" alt="Screenshot 2026-03-10 002522" src="https://github.com/user-attachments/assets/38923257-f0fb-4176-9ef0-379769e01cd3" />
+
