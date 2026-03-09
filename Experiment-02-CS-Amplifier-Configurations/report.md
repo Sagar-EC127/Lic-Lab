@@ -349,7 +349,7 @@ This bias configuration establishes a stable operating point where both transist
 <img width="685" height="560" alt="image" src="https://github.com/user-attachments/assets/5342b604-c9c2-4a94-a175-8fe8617086b2" />
 
 
-## Width Optimization – Circuit 2A
+## Width Optimization 
 
 The theoretical transistor widths provide an approximate starting point.  
 During simulation, the widths were adjusted slightly to achieve the desired drain current of **ID ≈ 200 µA** under realistic MOSFET model conditions.
@@ -366,7 +366,7 @@ Thus, small adjustments in width were made until the circuit produced the expect
 
 ---
 
-# Transient Analysis – Circuit 2A  
+# Transient Analysis  
 (Source Degenerated Common Source Amplifier)
 
 The dynamic behavior of the amplifier was examined using **transient analysis** in LTspice.  
@@ -479,7 +479,7 @@ signal approximately **10.33 times larger than the input signal**,
 confirming the amplification capability of the circuit.
 
 ---
-# AC Analysis – Circuit 2A
+# AC Analysis 
 
 AC small-signal simulation was carried out to study the frequency behavior of the amplifier.  
 This analysis helps in determining how the circuit responds to signals at different frequencies and allows the evaluation of the **midband voltage gain** and overall **frequency response** of the amplifier.
@@ -495,7 +495,7 @@ This analysis helps in determining how the circuit responds to signals at differ
 The AC analysis shows that the amplifier provides a midband gain of **20.278 dB**.  
 At the −3 dB point, the gain reduces to **17.278 dB**, and the measured bandwidth is **315.183 MHz**.
 
-## Theoretical Gain – Circuit 2A
+## Theoretical Gain 
 
 Small-signal parameters obtained from the LTspice operating point:
 
@@ -544,7 +544,7 @@ non-ideal MOSFET parameters**.
 
 <img width="894" height="813" alt="Screenshot 2026-03-01 102526" src="https://github.com/user-attachments/assets/00e1a399-5384-4141-82b5-e61cc5112627" />
 
-## DC Bias Analysis – Circuit 2B (Cascode Amplifier)
+## DC  Analysis  (Cascode Amplifier)
 
 ### Design Parameters
 
@@ -741,6 +741,173 @@ small-signal AC analysis was performed.
 | **4.643 dB** | **1.643 dB** | **277.41 MHz** |
 
 ---------
-## Theoretical Gain
+---
+### EXP2 – CIRCUIT 2C – 
 
+Common Source Amplifier with Diode-Connected NMOS Current Source and PMOS Active Load
+-------------------------------------------------------------
 
+<img width="1197" height="761" alt="Screenshot 2026-03-09 233431" src="https://github.com/user-attachments/assets/32bc82f8-15c5-41a1-bbe4-364d71fa22d5" />
+
+---
+# DC Analysis – Circuit 2C
+
+## Design Conditions
+
+| Parameter | Value |
+|-----------|-------|
+| VDD | 1.5 V |
+| ID | 200 µA |
+| VTHn | 0.36 V |
+| VTHp | −0.39 V |
+
+---
+
+## Voltage Constraints for Saturation Operation (VDD = 1.5 V)
+
+| Parameter | Minimum Limit | Maximum Limit | Explanation |
+|-----------|---------------|---------------|-------------|
+| VGS (NMOS) | ≥ 0.36 V | ≤ 1.5 V | Must exceed threshold voltage for channel formation |
+| VDS (NMOS) | ≥ VOV | ≤ 1.5 V | Required to keep NMOS in saturation region |
+| VSG (PMOS) | ≥ 0.39 V | ≤ 1.5 V | Must exceed PMOS threshold magnitude for conduction |
+| VSD (PMOS) | ≥ VOV | ≤ 1.5 V | Ensures PMOS operates in saturation |
+
+---
+
+# Verification of Overdrive Voltage
+
+The overdrive voltage (VOV) ensures that the MOSFET operates in the saturation region.
+
+## Gate Voltage Calculation
+
+| Expression | Value |
+|------------|-------|
+| VGS = VTH + VOV = 0.36 + 0.25 | **0.61 V** |
+| VOV = VGS − VTH = 0.61 − 0.36 | **0.25 V** |
+
+## Valid Range for Overdrive Voltage
+
+| Condition | Value |
+|-----------|-------|
+| Minimum VOV | > 0 |
+| Maximum VOV | < VDS |
+
+For the designed circuit,
+
+VDS ≈ **0.75 V**  *(approximately half of VDD = 1.5 V)*
+
+Therefore, the allowable range becomes   0 < VOV < 0.75 V
+
+### Design Justification
+
+A moderate value of overdrive voltage is selected because it offers several advantages:
+
+• It ensures adequate **transconductance (gm)** for proper amplification.  
+• It helps maintain a **stable drain current (ID)** during operation.  
+• It preserves enough **voltage headroom**, allowing the output signal to swing without driving the transistor out of saturation.
+
+---
+
+# Diode-Connected NMOS Bias (M3)
+
+For a diode-connected MOSFET, the **gate and drain are shorted**:
+
+VG = VD
+
+The source of **M3** is connected to ground, therefore
+
+| Node | Voltage |
+|------|--------|
+| VS3 | 0 V |
+
+Using the design bias point,
+
+| Node | Voltage |
+|------|--------|
+| VG3 = VD3 | **0.6 V** |
+
+Since this node is directly connected to the **source of M1**, we obtain
+
+| Node | Voltage |
+|------|--------|
+| VS1 | **0.6 V** |
+
+### Justification
+
+The diode-connected NMOS sets a fixed bias voltage at the node where **VG3 = VD3 = VS1 = 0.6 V**.  
+This self-biasing action allows the transistor to regulate the current (≈200 µA) and provide a stable reference voltage for the amplifier stage.
+
+---
+---
+
+# DC Gate Bias for M1
+
+To maintain the desired drain current in **M1**, the required gate–source voltage is determined from the threshold and overdrive voltages.
+
+| Expression | Value |
+|-----------|-------|
+| VGS1 = VTH + VOV = 0.36 + 0.25 | **0.61 V** |
+
+The source of **M1** is already biased at
+
+VS1 = **0.6 V**
+
+Therefore the gate voltage required is
+
+| Expression | Value |
+|-----------|-------|
+| VG1 = VS1 + VGS1 = 0.6 + 0.61 | **1.21 V** |
+
+Hence, the **DC input bias voltage** for the circuit is approximately
+
+**VIN(DC) ≈ 1.21 V**
+
+This bias ensures that **M1 operates in saturation while carrying the desired current.**
+
+---
+
+# Output Voltage Selection
+
+For achieving **maximum symmetrical signal swing**, the drain–source voltage is typically chosen near half of the supply voltage.
+
+| Calculation | Result |
+|-------------|--------|
+| VDS ≈ VDD / 2 = 1.5 / 2 | **0.75 V** |
+
+Therefore, the output voltage at the drain of **M1** becomes
+
+| Calculation | Result |
+|-------------|--------|
+| Vout = VDS + VS1 = 0.75 + 0.6 | **≈ 1.35 V** |
+
+This bias point allows sufficient headroom for the output signal to swing while keeping the transistor in the **saturation region**.
+
+---
+
+# Biasing of PMOS Active Load (M2)
+
+For the PMOS load transistor to conduct the required current, its source–gate voltage must satisfy the threshold and overdrive requirement.
+
+| Calculation | Result |
+|-------------|--------|
+| VSG2 = |VTHp| + VOV = 0.39 + 0.25 | **0.64 V** |
+
+The source of **M2** is tied to the supply voltage
+
+VS2 = **VDD = 1.5 V**
+
+Hence the gate voltage is
+
+| Calculation | Result |
+|-------------|--------|
+| VG2 = VS2 − VSG2 = 1.5 − 0.64 | **0.86 V** |
+
+## Drain–Source Voltage of M2
+
+Using the previously selected output voltage:
+
+| Calculation | Result |
+|-------------|--------|
+| VSD2 = VS2 − Vout = 1.5 − 1.35 | **0.15 V** |
+
+This biasing keeps the PMOS transistor operating as an **active load** while allowing proper current flow through the amplifier.
