@@ -983,3 +983,81 @@ Hence, the transistor widths were **fine-tuned during LTspice simulation** until
 ### Input & Output
 
 <img width="1907" height="863" alt="image" src="https://github.com/user-attachments/assets/d5fecae2-ae80-4b51-b92e-c300f022c820" />
+
+---
+## Practical Gain 
+
+| Vin(p-p) | Vout(p-p) | Gain (Av) | Gain (dB) |
+|----------|-----------|-----------|-----------|
+| 1.1199 − 1.1002 = **0.0197 V** | 1.3240 − 1.1319 = **0.1921 V** | 0.1921 / 0.0197 = **9.75 V/V** | **19.78 dB** |
+
+---
+
+### Observation
+
+The simulated output signal shows a larger amplitude compared to the input signal, indicating that the circuit provides voltage amplification. The calculated gain is approximately **9.75 V/V (19.78 dB)**, confirming the amplifier behavior of the designed MOSFET stage.
+
+----
+# AC Analysis 
+
+<img width="1914" height="877" alt="image" src="https://github.com/user-attachments/assets/e1814d42-5da8-4f15-bcce-8b69637ad894" />
+
+---
+---
+## Frequency Response Results – Circuit 2C
+
+| Gain (dB) | −3 dB Gain | Bandwidth |
+|-----------|------------|-----------|
+| 19.73 dB | **16.73 dB** | **662.6 MHz** |
+
+The AC frequency response shows that the amplifier maintains a nearly constant gain in the midband region.  
+The gain decreases by **3 dB at approximately 662.6 MHz**, which represents the bandwidth of the amplifier.
+
+---
+
+## Summary
+
+In this experiment, different **MOSFET amplifier configurations** were designed and simulated using **TSMC 180 nm CMOS models in LTspice** with a supply voltage of **1.5 V**.
+
+The following circuits were analyzed:
+
+• **Circuit 2A – Source Degenerated Common Source Amplifier**  
+• **Circuit 2B – Cascode Amplifier**  
+• **Circuit 2C – Common Source Amplifier with Active Load**
+
+For each circuit, the **DC operating point** was calculated to keep the MOSFETs in the **saturation region**.  
+After biasing the circuits, **transient analysis** was used to observe signal amplification and **AC analysis** was performed to determine the gain and bandwidth.
+
+---
+
+## Inference
+
+• The **source-degenerated amplifier (2A)** improves bias stability due to the presence of the source resistor, but this feedback slightly reduces voltage gain.
+
+• The **cascode amplifier (2B)** increases output resistance and improves frequency performance, although the practical gain obtained from simulation is relatively small.
+
+• The **active-load amplifier (2C)** provides better gain because the current-source load replaces a large resistor, which improves voltage amplification.
+
+---
+
+## Conclusion
+
+The experiment demonstrates the effect of different amplifier structures on gain and bandwidth.
+
+The **source-degenerated amplifier** provides stable operation, the **cascode amplifier** improves isolation and output resistance, and the **active-load common source amplifier** achieves higher voltage gain.
+
+The LTspice simulation results are close to the theoretical expectations, confirming the correct design and operation of the MOSFET amplifier circuits.
+
+---
+
+## Performance Comparison of Amplifiers
+
+| Feature | Circuit 2A | Circuit 2B | Circuit 2C |
+|--------|-------------|-------------|-------------|
+| Amplifier Type | Source Degenerated CS | Cascode Amplifier | CS with Active Load |
+| Bias Method | Source resistor feedback | Cascode biasing | Diode-connected NMOS |
+| DC Output Level | ≈ 0.95 V | ≈ 1.05 V | ≈ 1.25 V |
+| Voltage Gain | ≈ 20.28 dB | ≈ 4.66 dB | ≈ 19.73 dB |
+| Bandwidth | ≈ 315 MHz | ≈ 277 MHz | ≈ 662 MHz |
+| Stability | High | High | Moderate |
+| Design Complexity | Moderate | Higher | Moderate |
