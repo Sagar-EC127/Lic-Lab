@@ -560,17 +560,16 @@ Thus, the circuit successfully demonstrates the operation of a **Common Source a
 | Supply Voltage (VDD) | 1.5 V | 1.5 V |
 | Load Type | Resistor (RD = 3.75 kΩ) | PMOS Active Load |
 | Bias Output Voltage | ≈ 0.75 V | ≈ 0.75 V |
-| Drain Current (ID) | ≈ 200 µA | Determined by PMOS mirror bias |
+| Drain Current (ID) | ≈ 200 µA |  ≈ 200 µA|
 | NMOS Width | 1.534 µm | 0.8296 µm |
 | PMOS Width | Not used | 7.56 µm |
 | Phase Shift | 180° | 180° |
 | Practical Gain | 7.189 dB | −11.723 dB |
-| Theoretical Gain | 8.865 dB | Determined by active load transconductance |
 | Bandwidth (without CL) | ≈ 100 GHz | Very high (GHz range) |
 | Bandwidth (with CL = 1 pF) | ≈ 47.86 MHz | Reduced due to output capacitance |
 | Output Inversion | Yes | Yes |
 | Output Swing | Limited by RD | Improved due to active load |
-| Power Consumption | 0.3 mW | Determined by bias current |
+
 
 ---
 
