@@ -343,6 +343,27 @@ $$A_v \approx -2.04 \text{ V/V}$$
 **Conclusion:**
 The calculated practical gain of **-2.04 V/V** almost perfectly matches the simulated transient analysis result of **-2.28 V/V** (magnitude), validating the SPICE simulation against theoretical models.
 
+# Summary
+
+- The design meets the power requirement since the total power consumption is **0.3 mW**, which is safely below the **0.5 mW limit**.
+- The MOSFET is confirmed to be in the **saturation region**, ensuring correct small-signal amplification.
+- The **practical voltage gain** obtained from simulation is **7.189 dB**.
+- The **theoretical voltage gain** based on small-signal calculations is **8.865 dB**.
+- The difference between theoretical and simulated gain is due to **non-ideal MOSFET effects** such as channel-length modulation and parasitic capacitances.
+- The **bandwidth without any load capacitor** is extremely high, around **100 GHz**.
+- When a **1 pF load capacitor** is added, the bandwidth drops to **47.86 MHz** because of the dominant RC pole created at the output node.
+
+### **Conclusion**
+
+The Common Source amplifier successfully meets the design objectives of providing voltage amplification while maintaining low power consumption.  
+The MOSFET is biased correctly in the saturation region, ensuring linear operation and predictable small-signal behavior. The theoretical gain and the simulated gain closely agree, with minor deviation caused by practical non-idealities such as channel-length modulation and parasitic capacitances.  
+
+The frequency response analysis shows that the amplifier can achieve extremely high bandwidth when only intrinsic device capacitances are present. However, introducing an external load capacitor significantly reduces the bandwidth, demonstrating the dominant effect of output capacitance on high-frequency performance.  
+
+Overall, the CS amplifier achieves stable gain, satisfies the power constraint, and exhibits behavior consistent with MOSFET theory and SPICE simulations, validating the design and analysis.
+
+
+---
 
 # Other CS Configurations 
 
@@ -520,22 +541,44 @@ This produces a **180° phase shift**, resulting in **negative gain**.
 | PMOS Width (Balanced) | 7.56 µm |
 | Gain | −11.723 |
 
-# Summary
 
-- The design meets the power requirement since the total power consumption is **0.3 mW**, which is safely below the **0.5 mW limit**.
-- The MOSFET is confirmed to be in the **saturation region**, ensuring correct small-signal amplification.
-- The **practical voltage gain** obtained from simulation is **7.189 dB**.
-- The **theoretical voltage gain** based on small-signal calculations is **8.865 dB**.
-- The difference between theoretical and simulated gain is due to **non-ideal MOSFET effects** such as channel-length modulation and parasitic capacitances.
-- The **bandwidth without any load capacitor** is extremely high, around **100 GHz**.
-- When a **1 pF load capacitor** is added, the bandwidth drops to **47.86 MHz** because of the dominant RC pole created at the output node.
+# Conclusion
 
-### **Conclusion**
+The Common Source (CS) amplifier with PMOS active load was designed and analyzed using LTspice. The circuit was biased to obtain a symmetric output swing with **Vout ≈ VDD/2 (0.75 V)**. Both NMOS and PMOS transistors operate in the **saturation region**, ensuring proper amplification.
 
-The Common Source amplifier successfully meets the design objectives of providing voltage amplification while maintaining low power consumption.  
-The MOSFET is biased correctly in the saturation region, ensuring linear operation and predictable small-signal behavior. The theoretical gain and the simulated gain closely agree, with minor deviation caused by practical non-idealities such as channel-length modulation and parasitic capacitances.  
+From the transient analysis, the output signal is **inverted with respect to the input**, confirming the **180° phase shift** characteristic of a CS amplifier. AC analysis shows a **midband gain of −11.723 dB**, indicating voltage amplification with phase inversion.
 
-The frequency response analysis shows that the amplifier can achieve extremely high bandwidth when only intrinsic device capacitances are present. However, introducing an external load capacitor significantly reduces the bandwidth, demonstrating the dominant effect of output capacitance on high-frequency performance.  
+Thus, the circuit successfully demonstrates the operation of a **Common Source amplifier with active load**, providing stable biasing and amplification.
 
-Overall, the CS amplifier achieves stable gain, satisfies the power constraint, and exhibits behavior consistent with MOSFET theory and SPICE simulations, validating the design and analysis.
+---
+
+# Comparison of CS Amplifier Configurations
+
+| Parameter | CS Amplifier (NMOS with RD) | CS Amplifier (NMOS with PMOS Active Load) |
+|-----------|-----------------------------|-------------------------------------------|
+| Technology | TSMC 180 nm | TSMC 180 nm |
+| Supply Voltage (VDD) | 1.5 V | 1.5 V |
+| Load Type | Resistor (RD = 3.75 kΩ) | PMOS Active Load |
+| Bias Output Voltage | ≈ 0.75 V | ≈ 0.75 V |
+| Drain Current (ID) | ≈ 200 µA | Determined by PMOS mirror bias |
+| NMOS Width | 1.534 µm | 0.8296 µm |
+| PMOS Width | Not used | 7.56 µm |
+| Phase Shift | 180° | 180° |
+| Practical Gain | 7.189 dB | −11.723 dB |
+| Theoretical Gain | 8.865 dB | Determined by active load transconductance |
+| Bandwidth (without CL) | ≈ 100 GHz | Very high (GHz range) |
+| Bandwidth (with CL = 1 pF) | ≈ 47.86 MHz | Reduced due to output capacitance |
+| Output Inversion | Yes | Yes |
+| Output Swing | Limited by RD | Improved due to active load |
+| Power Consumption | 0.3 mW | Determined by bias current |
+
+---
+
+# Key Observations
+
+- Both circuits operate as **Common Source amplifiers**, producing a **180° phase inversion**.
+- The **resistor-loaded CS amplifier** is simpler but provides **lower gain**.
+- The **PMOS active load configuration** provides **higher effective load resistance**, resulting in **higher gain**.
+- The **bandwidth decreases significantly when load capacitance is added**, demonstrating the **gain–bandwidth trade-off** in analog circuits.
+
 
