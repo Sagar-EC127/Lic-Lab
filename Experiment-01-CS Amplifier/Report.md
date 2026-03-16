@@ -343,6 +343,183 @@ $$A_v \approx -2.04 \text{ V/V}$$
 **Conclusion:**
 The calculated practical gain of **-2.04 V/V** almost perfectly matches the simulated transient analysis result of **-2.28 V/V** (magnitude), validating the SPICE simulation against theoretical models.
 
+
+# Other CS Configurations 
+
+## Circuit
+
+<img width="1157" height="773" alt="Screenshot 2026-03-16 175640" src="https://github.com/user-attachments/assets/77de9abd-94b7-4400-9e4c-1bbf0fcc4f2b" />
+
+| Device | Function |
+|------|------|
+| M1 | NMOS amplifier |
+| M2 | PMOS active load |
+
+Supply voltage:
+
+VDD = **1.5 V**
+
+---
+
+# DC Bias Condition
+
+To obtain maximum symmetric swing:
+
+Formula:
+
+Vout = VDD / 2
+
+| Parameter | Value |
+|------|------|
+| VDD | 1.5 V |
+| Vout | 0.75 V |
+| VD1 | 0.75 V |
+| VD2 | 0.75 V |
+| VG2 | 0.75 V |
+
+# Saturation Condition (NMOS) M1
+
+Condition:
+
+VDS ≥ VGS − VTH
+
+Using the boundary condition:
+
+VGS = VDS + VTH
+
+| Parameter | Value |
+|------|------|
+| VDS | 0.75 V |
+| VTH | 0.366 V |
+| VGS | 1.116 V |
+
+Since
+
+VDS ≥ VGS − VTH
+
+0.75 ≥ 1.116 − 0.366  
+0.75 ≥ 0.75
+
+Therefore the **NMOS operates in saturation region**.
+---
+
+# Operating Point (LTspice)
+
+<img width="803" height="632" alt="1_other configuration" src="https://github.com/user-attachments/assets/ea641d8c-3919-4827-ac93-339cc5724c61" />
+
+| Parameter | Value |
+|------|------|
+| Vin | 1.116 V |
+| Vout | 0.751 V |
+
+
+---
+
+# MOSFET Width Calculation
+
+MOSFET current equation:
+
+ID = (1/2) μCox (W/L) (Vov)²
+
+---
+
+## NMOS Width
+
+| Parameter | Value |
+|------|------|
+| Initial Width (W1) | 0.55 µm |
+| Balanced Width | **0.8296 µm** |
+| Length | 0.18 µm |
+
+---
+
+## PMOS Width
+
+| Parameter | Value |
+|------|------|
+| Initial Width (W2) | 5.706 µm |
+| Balanced Width | **7.56 µm** |
+| Length | 0.18 µm |
+
+---
+
+# Transient Analysis
+
+### Input Signal
+
+<img width="1912" height="872" alt="Screenshot 2026-03-16 175949" src="https://github.com/user-attachments/assets/58f88059-78d5-4bb1-8358-effc740f0d3f" />
+
+Input signal:
+
+SINE(1.116 10m 1000)
+
+| Parameter | Value |
+|------|------|
+| Offset | 1.116 V |
+| Amplitude | 10 mV |
+| Frequency | 1 kHz |
+
+---
+
+### Output Signal
+
+<img width="1919" height="877" alt="Screenshot 2026-03-16 175835" src="https://github.com/user-attachments/assets/f57a0e7f-7b54-4e65-9368-29b1a1d2462a" />
+
+
+Observation:
+
+| Property | Result |
+|------|------|
+| Phase | 180° inversion |
+| Output bias | ≈ 0.75 V |
+
+---
+
+### Input vs Output
+
+<img width="1917" height="889" alt="Screenshot 2026-03-16 180017" src="https://github.com/user-attachments/assets/bf987999-1294-48a2-9683-e92313aeaa80" />
+
+Output waveform is **inverted with respect to input**.
+
+---
+
+#  AC Analysis
+
+<img width="1917" height="889" alt="Screenshot 2026-03-16 180017" src="https://github.com/user-attachments/assets/619bb191-8dc7-47aa-b1a3-521e511f9c48" />
+
+| Parameter | Value |
+|-----------|-------|
+| Midband Gain (Av) | -11.723 dB |
+| 3 dB Gain | -14.723 dB |
+---
+
+#  Reason for Negative Gain
+
+| Step | Operation |
+|------|------|
+| 1 | Vin increases |
+| 2 | NMOS drain current increases |
+| 3 | Voltage drop across PMOS load increases |
+| 4 | Output voltage decreases |
+
+Thus
+
+Vin ↑ → Vout ↓
+
+This produces a **180° phase shift**, resulting in **negative gain**.
+
+---
+
+# Final Results
+
+| Parameter | Value |
+|------|------|
+| VDD | 1.5 V |
+| Vout | 0.75 V |
+| NMOS Width (Balanced) | 0.8296 µm |
+| PMOS Width (Balanced) | 7.56 µm |
+| Gain | −11.723 |
+
 # Summary
 
 - The design meets the power requirement since the total power consumption is **0.3 mW**, which is safely below the **0.5 mW limit**.
