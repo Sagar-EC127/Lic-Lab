@@ -369,7 +369,9 @@ Overall, the CS amplifier achieves stable gain, satisfies the power constraint, 
 
 ## Circuit
 
+
 <img width="1157" height="773" alt="Screenshot 2026-03-16 175640" src="https://github.com/user-attachments/assets/77de9abd-94b7-4400-9e4c-1bbf0fcc4f2b" />
+
 
 | Device | Function |
 |------|------|
@@ -426,7 +428,9 @@ Therefore the **NMOS operates in saturation region**.
 
 # Operating Point (LTspice)
 
+
 <img width="803" height="632" alt="1_other configuration" src="https://github.com/user-attachments/assets/ea641d8c-3919-4827-ac93-339cc5724c61" />
+
 
 | Parameter | Value |
 |------|------|
@@ -468,7 +472,9 @@ ID = (1/2) μCox (W/L) (Vov)²
 
 ### Input Signal
 
+
 <img width="1912" height="872" alt="Screenshot 2026-03-16 175949" src="https://github.com/user-attachments/assets/58f88059-78d5-4bb1-8358-effc740f0d3f" />
+
 
 Input signal:
 
@@ -484,6 +490,7 @@ SINE(1.116 10m 1000)
 
 ### Output Signal
 
+
 <img width="1919" height="877" alt="Screenshot 2026-03-16 175835" src="https://github.com/user-attachments/assets/f57a0e7f-7b54-4e65-9368-29b1a1d2462a" />
 
 
@@ -498,7 +505,9 @@ Observation:
 
 ### Input vs Output
 
+
 <img width="1917" height="889" alt="Screenshot 2026-03-16 180017" src="https://github.com/user-attachments/assets/bf987999-1294-48a2-9683-e92313aeaa80" />
+
 
 Output waveform is **inverted with respect to input**.
 
@@ -506,7 +515,9 @@ Output waveform is **inverted with respect to input**.
 
 #  AC Analysis
 
-<img width="1917" height="889" alt="Screenshot 2026-03-16 180017" src="https://github.com/user-attachments/assets/619bb191-8dc7-47aa-b1a3-521e511f9c48" />
+
+<img width="1919" height="882" alt="Screenshot 2026-03-16 180233" src="https://github.com/user-attachments/assets/95d0bff6-6a28-4dcb-a257-f87e07d26fe3" />
+
 
 | Parameter | Value |
 |-----------|-------|
