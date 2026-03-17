@@ -671,11 +671,12 @@ This produces a **180° phase shift**, resulting in **negative gain**.
 
 ---
 
+
 # Conclusion
 
 The Common Source (CS) amplifier with PMOS active load was designed and analyzed using LTspice. The circuit was biased to obtain a symmetric output swing with **Vout ≈ VDD/2 (0.75 V)**. Both NMOS and PMOS transistors operate in the **saturation region**, ensuring proper amplification.
 
-From the transient analysis, the output signal is **inverted with respect to the input**, confirming the **180° phase shift** characteristic of a CS amplifier. AC analysis shows a **midband gain of −11.723 dB**, indicating voltage amplification with phase inversion.
+From the transient analysis, the output signal is **inverted with respect to the input**, confirming the **180° phase shift** characteristic of a CS amplifier. AC analysis shows a **midband gain of ~14 dB**, indicating proper voltage amplification with phase inversion.
 
 Thus, the circuit successfully demonstrates the operation of a **Common Source amplifier with active load**, providing stable biasing and amplification.
 
@@ -683,30 +684,32 @@ Thus, the circuit successfully demonstrates the operation of a **Common Source a
 
 # Comparison of CS Amplifier Configurations
 
-| Parameter | CS Amplifier (NMOS with RD) | CS Amplifier (NMOS with PMOS Active Load) |
-|-----------|-----------------------------|-------------------------------------------|
-| Technology | TSMC 180 nm | TSMC 180 nm |
-| Supply Voltage (VDD) | 1.5 V | 1.5 V |
-| Load Type | Resistor (RD = 3.75 kΩ) | PMOS Active Load |
-| Bias Output Voltage | ≈ 0.75 V | ≈ 0.75 V |
-| Drain Current (ID) | ≈ 200 µA |  ≈ 200 µA|
-| NMOS Width | 1.534 µm | 0.8296 µm |
-| PMOS Width | Not used | 7.56 µm |
-| Phase Shift | 180° | 180° |
-| Practical Gain | 7.189 dB | −11.723 dB |
-| Bandwidth (without CL) | ≈ 100 GHz | Very high (GHz range) |
-| Bandwidth (with CL = 1 pF) | ≈ 47.86 MHz | Reduced due to output capacitance |
-| Output Inversion | Yes | Yes |
-| Output Swing | Limited by RD | Improved due to active load |
-
+| Parameter | CS Amplifier (NMOS with RD) | CS Amplifier (PMOS Active Load) | 2nd CS Configuration |
+|-----------|-----------------------------|----------------------------------|----------------------|
+| Technology | TSMC 180 nm | TSMC 180 nm | 180 nm |
+| Supply Voltage (VDD) | 1.5 V | 1.5 V | 1.5 V |
+| Load Type | Resistor (RD) | PMOS Active Load | PMOS Active Load |
+| Bias Output Voltage | ≈ 0.75 V | ≈ 0.75 V | ≈ 0.75 V |
+| Drain Current (ID) | ≈ 200 µA | ≈ 200 µA | ≈ 200 µA |
+| NMOS Width | 1.534 µm | 0.8296 µm | 0.82 µm |
+| PMOS Width | Not used | 7.56 µm | 2.49 µm |
+| Phase Shift | 180° | 180° | 180° |
+| Practical Gain | 7.189 dB | −11.723 dB | 13.99 dB |
+| AC Gain | 7.186 dB | -11.703 dB | 14.03 dB |
+| Bandwidth (without CL) | ≈ 100 GHz | Very high | High (GHz range) |
+| Bandwidth (with CL = 1 pF) | ≈ 47.86 MHz | Reduced | Reduced |
+| Output Inversion | Yes | Yes | Yes |
+| Output Swing | Limited | Improved | Improved |
 
 ---
 
 # Key Observations
 
-- Both circuits operate as **Common Source amplifiers**, producing a **180° phase inversion**.
-- The **resistor-loaded CS amplifier** is simpler but provides **lower gain**.
-- The **PMOS active load configuration** provides **higher effective load resistance**, resulting in **higher gain**.
-- The **bandwidth decreases significantly when load capacitance is added**, demonstrating the **gain–bandwidth trade-off** in analog circuits.
+- All circuits operate as **Common Source amplifiers** with **180° phase inversion**  
+- The **resistor-loaded CS amplifier** is simple but gives **lower gain**  
+- The **PMOS active load** increases effective resistance → **higher gain**  
+- The **2nd configuration achieves ~14 dB gain**, matching AC and transient results  
+- Biasing at **VDD/2 ensures maximum symmetrical swing**  
+- Bandwidth reduces when **load capacitance is added** → gain-bandwidth trade-off  
 
-
+---
