@@ -599,7 +599,7 @@ This produces a **180° phase shift**, resulting in **negative gain**.
 | Parameter | Expression | Calculation | Result |
 |----------|------------|-------------|--------|
 | VSD | VS − VD | 1.5 − 0.75 | **0.75 V** |
-| VSG | VSD + |VTHp| | 0.75 + 0.39 | **1.14 V** |
+| VSG | VSD + VTHp | 0.75 + 0.39 | **1.14 V** |
 | VG2 | VS − VSG | 1.5 − 1.14 | **0.36 V** |
 
 ---
@@ -609,7 +609,7 @@ This produces a **180° phase shift**, resulting in **negative gain**.
 | Device | Expression | Calculation | Result |
 |--------|------------|-------------|--------|
 | NMOS | VOVn = VGS − VTHn | 1.116 − 0.366 | **0.75 V** |
-| PMOS | VOVp = VSG − |VTHp| | 1.14 − 0.39 | **0.75 V** |
+| PMOS | VOVp = VSG − VTHp | 1.14 − 0.39 | **0.75 V** |
 
 ---
 
