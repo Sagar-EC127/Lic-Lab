@@ -553,6 +553,124 @@ This produces a **180° phase shift**, resulting in **negative gain**.
 | Gain | −11.723 |
 
 
+# 2 other Common Source Configuration :
+
+
+## Design Parameters
+
+| Parameter | Symbol | Value |
+|----------|--------|------|
+| Supply Voltage | VDD | 1.5 V |
+| Technology | — | 180 nm |
+| Channel Length | L | 180 nm |
+| NMOS Threshold | VTHn | 0.366 V |
+| PMOS Threshold | VTHp | −0.39 V |
+| Drain Current | ID | 200 µA |
+
+---
+
+## Circuit 
+
+<img width="1109" height="769" alt="Screenshot 2026-03-17 190743" src="https://github.com/user-attachments/assets/4e9230d4-2e9a-4ac4-ab15-88f8d2116c4c" />
+
+
+
+## width comparison
+
+| Device | calculated width | practical width |
+|--------|------------|------------|
+| NMOS | 0.555 µm | 0.82 µm |
+| PMOS | 1.31 µm | 2.49 µm |
+
+---
+
+## Bias and Node Voltages
+
+| Parameter | Expression | Calculation | Result |
+|----------|------------|-------------|--------|
+| Drain Voltage | VDS = VDD / 2 | 1.5 / 2 | **0.75 V** |
+| NMOS Gate Voltage | VGS = VDS + VTHn | 0.75 + 0.366 | **1.116 V** |
+| PMOS Source Voltage | VS | Given | 1.5 V |
+| Output Voltage | VD | VDS1 | 0.75 V |
+| PMOS Gate Voltage | VG2 = VS − VSG | 1.5 − 1.14 | **0.36 V** |
+
+## PMOS 
+
+| Parameter | Expression | Calculation | Result |
+|----------|------------|-------------|--------|
+| VSD | VS − VD | 1.5 − 0.75 | **0.75 V** |
+| VSG | VSD + |VTHp| | 0.75 + 0.39 | **1.14 V** |
+| VG2 | VS − VSG | 1.5 − 1.14 | **0.36 V** |
+
+---
+
+## Overdrive Voltages
+
+| Device | Expression | Calculation | Result |
+|--------|------------|-------------|--------|
+| NMOS | VOVn = VGS − VTHn | 1.116 − 0.366 | **0.75 V** |
+| PMOS | VOVp = VSG − |VTHp| | 1.14 − 0.39 | **0.75 V** |
+
+---
+
+## Saturation Verification
+
+| Device | Condition | Calculation | Result |
+|--------|----------|-------------|--------|
+| NMOS | VDS ≥ VOVn | 0.75 ≥ 0.75 | ✔ |
+| PMOS | VSD ≥ VOVp | 0.75 ≥ 0.75 | ✔ |
+
+---
+
+# Operating Point 
+
+<img width="616" height="626" alt="Screenshot 2026-03-17 185614" src="https://github.com/user-attachments/assets/110dfd49-5e54-4c60-8be6-2a25529e2a05" />
+
+---
+# Transient Analysis 
+
+## Both input and Output
+
+<img width="1910" height="872" alt="Screenshot 2026-03-17 190358" src="https://github.com/user-attachments/assets/e92a4f53-d2be-412e-9823-e0bb04698834" />
+
+## Input 
+
+<img width="1915" height="887" alt="Screenshot 2026-03-17 190325" src="https://github.com/user-attachments/assets/2813ba96-909e-4d8a-b440-e53f001bb994" />
+
+## Output
+
+<img width="1913" height="899" alt="Screenshot 2026-03-17 190257" src="https://github.com/user-attachments/assets/0ab4c785-2096-44a6-8f5f-8d7abfd64467" />
+
+
+# Ac Analysis 
+
+<img width="1914" height="899" alt="Screenshot 2026-03-17 190622" src="https://github.com/user-attachments/assets/0876a856-e8fd-409e-8e37-e06b4275ba57" />
+
+
+# Gain 
+
+| Gain Type | Expression | Calculation | Result |
+|----------|------------|-------------|--------|
+| Practical Gain (Transient) | Av = Vout(p-p) / Vin(p-p) | 98.64 mV / 19.66 mV | **5.01 V/V** |
+| Practical Gain (dB) | 20 log10(Av) | 20 log10(5.01) | **13.99 dB** |
+| AC Gain (Midband) | From Bode Plot | — | **14.03 dB** |
+| AC Gain (Linear) | \(10^{(dB/20)}\) | \(10^{(14.03/20)}\) | **5.02 V/V** |
+
+---
+
+## Final Summary
+
+| Parameter | Value |
+|----------|------|
+| VDS | 0.75 V |
+| VGS | 1.116 V |
+| VG2 | 0.36 V |
+| VOVn | 0.75 V |
+| VOVp | 0.75 V |
+| Gain (dB) | 14.03 dB |
+
+---
+
 # Conclusion
 
 The Common Source (CS) amplifier with PMOS active load was designed and analyzed using LTspice. The circuit was biased to obtain a symmetric output swing with **Vout ≈ VDD/2 (0.75 V)**. Both NMOS and PMOS transistors operate in the **saturation region**, ensuring proper amplification.
