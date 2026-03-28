@@ -160,9 +160,8 @@ This results in equal current distribution in the differential amplifier.
 | Small Vid (20 mV) | Both transistors ON, current splits equally, linear amplification |
 | Large Vid (500 mV) | One transistor ON, other OFF, current steering occurs |
 
-### Key Point
 
 - Small Vid → **Linear region (amplification)**  
 - Large Vid → **Nonlinear region (distortion & saturation)**  
 
-✔️ As Vid exceeds √2·Vov, the circuit shifts from **current sharing → current steering**
+ As Vid exceeds √2·Vov, the circuit shifts from **current sharing → current steering**
