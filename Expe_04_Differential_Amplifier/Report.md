@@ -177,7 +177,7 @@ This results in equal current distribution in the differential amplifier.
 
  ## Differential Input Applied (Vid)
 
-### Linear Region (First Waveform)
+### Linear Region 
 
 | Quantity | Value |
 |---------|------|
@@ -460,32 +460,67 @@ The inputs **Vin1 and Vin2** are applied to M1 and M2, and the output is taken a
 
 ## Transient Analysis
 
-### Calculation Table
-
 | Parameter | Equation | Substitution | Value |
 |----------|---------|-------------|------|
-| Vid | Vin1 − Vin2 | 10m − (−10m) | 20 mV |
-| Vin(pp) | From graph | — | 19.97 mV |
-| Vout(pp) | From graph | — | 36.7 mV |
+| Vid (10 mV case) | Vin1 − Vin2 | 10 mV − (−10 mV) | 20 mV |
+| Vid (250 mV case) | Vin1 − Vin2 | 250 mV − (−250 mV) | 500 mV |
+| Vov | VGS − VT | 0.7 − 0.366 | 0.334 V |
+| √2 · Vov | 1.414 × Vov | 1.414 × 0.334 | 0.472 V |
+| Condition (10 mV) | −√2·Vov ≤ Vid ≤ √2·Vov | −0.472 ≤ 0.02 ≤ 0.472 | Satisfied ✔️ |
+| Condition (250 mV) | −√2·Vov ≤ Vid ≤ √2·Vov | −0.472 ≤ 0.5 ≤ 0.472 | Not satisfied ❌ |
+| Operation | — | — | Linear (10 mV), Nonlinear (250 mV) |
+
+### Linear Region 
+
+| Quantity | Value |
+|---------|------|
+| Vin1    | +10 mV (approx) |
+| Vin2    | -10 mV (approx) |
+| Vid = Vin1 - Vin2 | ≈ 20 mV |
+| Condition | Vid < √2 · Vov |
+
+<img width="1907" height="891" alt="Screenshot 2026-03-28 185924" src="https://github.com/user-attachments/assets/d0fa355e-6f02-4681-9df0-5612c0bcaffa" />
 
 ---
+
+### Non-Linear Region 
+
+| Quantity | Value |
+|---------|------|
+| Vin1    | +250 mV (approx) |
+| Vin2    | -250 mV (approx) |
+| Vid = Vin1 - Vin2 | ≈ 500 mV |
+| Condition | Vid > √2 · Vov |
+
+<img width="1914" height="877" alt="Screenshot 2026-03-29 000219" src="https://github.com/user-attachments/assets/8ebdfa52-0d06-4bac-95d7-934aca8e3b46" />
+
+## Transient gain 
+
+### Input 
+
+<img width="1917" height="874" alt="Screenshot 2026-03-28 190006" src="https://github.com/user-attachments/assets/25ad2c79-b5c2-4d4b-a070-389139410c42" />
+
+
+### output 
+
+<img width="1919" height="884" alt="Screenshot 2026-03-28 190025" src="https://github.com/user-attachments/assets/f164374b-fd45-4320-9a32-8233fefb76ae" />
+
+
+### Both waveforms (Input and output)
+
+<img width="1907" height="891" alt="Screenshot 2026-03-28 185924" src="https://github.com/user-attachments/assets/c2b672b6-8182-49cd-b34d-465b71031ee7" />
+
 
 ## Transient Gain Calculation
 
-| Parameter | Formula | Value |
-|----------|--------|------|
-| Gain (Av) | Vout(pp) / Vin(pp) | 36.7 / 19.97 |
-| Gain (Av) | — | ≈ 1.84 |
+| Parameter | Equation / Formula | Substitution | Value |
+|----------|-------------------|-------------|------|
+| Vid | Vin1 − Vin2 | 10m − (−10m) | 20 mV |
+| Vin(pp) | From graph | — | 19.97 mV |
+| Vout(pp) | From graph | — | 36.7 mV |
+| Gain (Av) | Vout(pp) / Vin(pp) | 36.7 / 19.97 | ≈ 1.84 |
+| Gain (dB) | 20 log₁₀(Av) | 20 log₁₀(1.84) | ≈ 5.3 dB |
 
----
-
-## Gain in dB
-
-| Parameter | Formula | Value |
-|----------|--------|------|
-| Gain (dB) | 20 log₁₀(1.84) | ≈ 5.3 dB |
-
----
 
 ## AC Analysis
 
