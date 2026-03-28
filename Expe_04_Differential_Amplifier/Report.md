@@ -356,7 +356,10 @@ The **theoretical gain (≈ 14.6 dB)** is close to the **practical gain (15.747 
 
 Overall, the differential amplifier provides **good amplification, proper biasing, and expected frequency response**, validating the design.
 
-# Circuit 2(b): CMOS Differential Amplifier with Active Load
+---
+---
+
+# Circuit 4(b): CMOS Differential Amplifier with Active Load
 
   <img width="1076" height="857" alt="Screenshot 2026-03-28 205530" src="https://github.com/user-attachments/assets/6a616b96-e6f7-4b69-98cd-33bbd657c1d5" />
 
@@ -390,7 +393,7 @@ The inputs **Vin1 and Vin2** are applied to M1 and M2, and the output is taken a
 - Provides high output resistance  
 - Increases gain  
 - Eliminates need for resistors  
-
+---
 
 ## DC Analysis 
 
@@ -451,6 +454,7 @@ The inputs **Vin1 and Vin2** are applied to M1 and M2, and the output is taken a
   - Mobility variation  
   - Accurate current matching in simulation  
 
+---
 
 ## Operating Point
 
@@ -469,6 +473,8 @@ The inputs **Vin1 and Vin2** are applied to M1 and M2, and the output is taken a
 | Condition (10 mV) | −√2·Vov ≤ Vid ≤ √2·Vov | −0.472 ≤ 0.02 ≤ 0.472 | Satisfied ✔️ |
 | Condition (250 mV) | −√2·Vov ≤ Vid ≤ √2·Vov | −0.472 ≤ 0.5 ≤ 0.472 | Not satisfied ❌ |
 | Operation | — | — | Linear (10 mV), Nonlinear (250 mV) |
+
+---
 
 ### Linear Region 
 
@@ -494,22 +500,27 @@ The inputs **Vin1 and Vin2** are applied to M1 and M2, and the output is taken a
 
 <img width="1914" height="877" alt="Screenshot 2026-03-29 000219" src="https://github.com/user-attachments/assets/8ebdfa52-0d06-4bac-95d7-934aca8e3b46" />
 
+---
+
 ## Transient gain 
 
 ### Input 
 
 <img width="1917" height="874" alt="Screenshot 2026-03-28 190006" src="https://github.com/user-attachments/assets/25ad2c79-b5c2-4d4b-a070-389139410c42" />
 
+---
 
 ### output 
 
 <img width="1919" height="884" alt="Screenshot 2026-03-28 190025" src="https://github.com/user-attachments/assets/f164374b-fd45-4320-9a32-8233fefb76ae" />
 
+---
 
 ### Both waveforms (Input and output)
 
 <img width="1907" height="891" alt="Screenshot 2026-03-28 185924" src="https://github.com/user-attachments/assets/c2b672b6-8182-49cd-b34d-465b71031ee7" />
 
+---
 
 ## Transient Gain Calculation
 
@@ -522,48 +533,69 @@ The inputs **Vin1 and Vin2** are applied to M1 and M2, and the output is taken a
 | Gain (dB) | 20 log₁₀(Av) | 20 log₁₀(1.84) | ≈ 5.3 dB |
 
 
-## AC Analysis
+---
 
-| Parameter | Value |
-|----------|------|
-| Midband Gain | ≈ 15.7 – 19 dB |
-| Phase | ≈ -180° |
+# AC Analysis
+## Without Capacitor 
+
+<img width="1918" height="898" alt="Screenshot 2026-03-28 223134" src="https://github.com/user-attachments/assets/c9cf9ae7-7e18-48bf-ba58-a43afdd35d96" />
 
 ---
 
-## 3 dB Bandwidth
+## With Capacitor 
 
-| Parameter | Value |
-|----------|------|
-| 3 dB Gain | ≈ (Midband - 3 dB) |
-| Bandwidth | ≈ 38 MHz |
+<img width="1919" height="875" alt="Screenshot 2026-03-28 215634" src="https://github.com/user-attachments/assets/f87e70e5-dc6e-4cdf-b078-4bb53ddd07dd" />
 
 ---
 
-## Theoretical Gain Calculation
+## AC Analysis Comparison (Without Capacitor vs With Capacitor)
+ 
+### 1. Without Capacitor
 
-| Step | Parameter | Formula | Value |
-|------|----------|--------|------|
-| 1 | Vov | VGS − VT | 0.7 − 0.366 = 0.334 V |
-| 2 | gm | 2ID / Vov | (2 × 0.61mA) / 0.334 |
-| 3 | gm | — | ≈ 3.65 mS |
-| 4 | Gain (Ad) | gm × ro | High |
-| 5 | Gain (dB) | 20 log₁₀(Ad) | ≈ 15–19 dB |
+- Gain is almost **constant across frequency**
+- Shows **flat response (wide bandwidth)**
+- No reactive element → no frequency limitation  
+- Phase is close to **-180°** → indicates inversion  
 
----
-
-## Key Observation
-
-| Parameter | Behavior |
-|----------|---------|
-| Current distribution | Equal (balanced condition) |
-| Region | Saturation |
-| Gain type | gm × ro |
-| Load | Active (PMOS) |
+Behavior:  
+Acts like an **ideal amplifier**
 
 ---
 
-## Final Conclusion
+### 2. With Capacitor
+
+- Gain is **constant at low frequency**  
+- After a certain frequency, gain **starts decreasing**
+- This is due to capacitor creating a **pole**
+- Bandwidth becomes **limited**
+
+Behavior:  
+Acts like a **low-pass amplifier**
+
+---
+
+### 3. Key Difference
+
+| Parameter | Without Capacitor | With Capacitor |
+|----------|------------------|----------------|
+| Gain vs Frequency | Flat | Decreasing after cutoff |
+| Bandwidth | Very High | Limited |
+| Effect of Capacitor | Not present | Introduces pole |
+| Stability | Less controlled | More controlled |
+
+---
+## Gain and Bandwidth
+
+| Case | Gain | Bandwidth |
+|------|------|-----------|
+| Without Capacitor | ≈ -19 dB | Very High (no cutoff observed) |
+| With Capacitor | ≈ -19 dB (low freq) | ≈ 38 MHz |
+
+### Final Point
+
+The capacitor introduces frequency-dependent behavior, reducing gain at high frequencies and limiting bandwidth, while the circuit without capacitor maintains a constant gain over a wider frequency range.
+
+##  Conclusion
 
 - Circuit is properly biased with **Vs = -0.7 V**
 - Equal current splitting confirms correct operation  
@@ -571,4 +603,30 @@ The inputs **Vin1 and Vin2** are applied to M1 and M2, and the output is taken a
 - Transient gain is lower due to large-signal behavior  
 - AC gain is higher due to small-signal approximation  
 
+---
+
+## Comparison: Resistive Load vs Active Load Differential Amplifier
+
+| Parameter | Circuit 4(a) (Resistive Load) | Circuit 4(b) (Active Load) |
+|----------|------------------------------|----------------------------|
+| Load Type | Resistor (RD) | PMOS Active Load |
+| Gain Formula | gm × RD | gm × ro |
+| Theoretical Gain | ≈ 14.6 dB | ≈ 15–19 dB |
+| Practical Gain (AC) | 15.747 dB | ≈ -19 dB (inverting plot) |
+| Transient Gain | ≈ 6.12 | ≈ 1.84 |
+| Output Resistance | Low | High |
+| Bandwidth (with capacitor) | ≈ 11.5 MHz | ≈ 38 MHz |
+| Bandwidth (without capacitor) | ≈ 5.08 GHz | Very High |
+| Gain Behavior | Stable | Higher but frequency dependent |
+| Power Efficiency | Lower | Higher |
+| Complexity | Simple | More complex |
+| Accuracy | Moderate | High (due to current mirror) |
+
+---
+
+## Final Insight
+
+- **Resistive load → simpler, predictable gain**
+- **Active load → higher gain due to high output resistance**
+- Active load circuits are preferred in **IC design and op-amps**
 
