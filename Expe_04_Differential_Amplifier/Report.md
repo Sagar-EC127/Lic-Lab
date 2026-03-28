@@ -356,4 +356,184 @@ The **theoretical gain (≈ 14.6 dB)** is close to the **practical gain (15.747 
 
 Overall, the differential amplifier provides **good amplification, proper biasing, and expected frequency response**, validating the design.
 
+# Circuit 2(b): CMOS Differential Amplifier with Active Load
+
+  <img width="1076" height="857" alt="Screenshot 2026-03-28 205530" src="https://github.com/user-attachments/assets/6a616b96-e6f7-4b69-98cd-33bbd657c1d5" />
+
+## Explanation of CMOS Differential Amplifier with Active Load
+
+### Basic Operation
+
+The circuit consists of an **NMOS differential pair (M1, M2)** and a **PMOS active load (M4, M5)**.  
+The inputs **Vin1 and Vin2** are applied to M1 and M2, and the output is taken at **Vout1 and Vout2**.
+
+---
+
+### Tail Current Source
+
+| Component | Function |
+|----------|----------|
+| M3 | Acts as constant current source |
+
+- Provides fixed current:  
+  Itail = 1.22 mA  
+- This current splits between M1 and M2 depending on input
+
+---
+
+### Active Load
+
+| Component | Function |
+|----------|----------|
+| M4, M5 | PMOS current mirror load |
+
+- Provides high output resistance  
+- Increases gain  
+- Eliminates need for resistors  
+
+
+## DC Analysis 
+
+## Gate Voltage Calculation
+
+| Parameter | Equation | Substitution | Value |
+|----------|---------|-------------|------|
+| VGS | = Vth | — | 0.366 V |
+| Vg | Vs + VGS | -0.7 + 0.366 | -0.334 V |
+
+## Saturation Condition Check
+
+### 1. NMOS ( M1 , M2 )
+
+| Parameter | Equation | Substitution | Value |
+|----------|---------|-------------|------|
+| VGS | Vg − Vs | 0 − (−0.7) | 0.7 V |
+| VGS − VT | VGS − VT | 0.7 − 0.5 | 0.2 V |
+| VDS | Vout − Vs | 0 − (−0.7) | 0.7 V |
+| Condition | VDS ≥ VGS − VT | 0.7 ≥ 0.2 | Satisfied ✔️ |
+
+---
+
+### 2. PMOS ( M3,M4 )
+
+| Parameter | Equation | Substitution | Value |
+|----------|---------|-------------|------|
+| VSG | Vs − Vg | 0.9 − 0 | 0.9 V |
+| VSG − VT | VSG − VT | 0.9 − 0.39 | 0.51 V |
+| VSD | Vs − Vd | 0.9 − 0 | 0.9 V |
+| Condition | VSD ≥ VSG − VT | 0.9 ≥ 0.51 | Satisfied ✔️ |
+
+---
+
+### 3. NMOS ( M3 )
+
+| Parameter | Equation | Substitution | Value |
+|----------|---------|-------------|------|
+| VGS | Vg − Vs | -0.334 − (−0.9) | 0.566 V |
+| VGS − VT | VGS − VT | 0.566 − 0.366 | 0.2 V |
+| VDS | Vd − Vs | -0.7 − (−0.9) | 0.2 V |
+| Condition | VDS ≥ VGS − VT | 0.2 ≥ 0.2 | Satisfied ✔️ |
+
+## Width Calculation 
+
+| Transistor | Formula | Theoretical (W) | Practical (W) | Observation |
+|------------|---------|----------------|---------------|-------------|
+| M1, M2 | W = (2·ID·L) / (μnCox·Vov²) | 25.64 µm | 40 µm | Increased due to non-ideal effects |
+| M4, M5 | W = (2·ID·L) / (μpCox·Vov²) | 26.01 µm | 53.4 µm | Higher W to match current mirror accuracy |
+| M3 | W = (2·Itail·L) / (μnCox·Vov²) | 71.51 µm | 340 µm | Large width for stable current source |
+
+---
+
+## Reason 
+
+- Practical widths are higher due to:
+  - Channel length modulation  
+  - Mobility variation  
+  - Accurate current matching in simulation  
+
+
+## Operating Point
+
+<img width="847" height="794" alt="Screenshot 2026-03-28 183954" src="https://github.com/user-attachments/assets/d978bb7a-cfa5-448e-b5d0-bd22c9c05ade" />
+
+---
+
+## Transient Analysis
+
+### Calculation Table
+
+| Parameter | Equation | Substitution | Value |
+|----------|---------|-------------|------|
+| Vid | Vin1 − Vin2 | 10m − (−10m) | 20 mV |
+| Vin(pp) | From graph | — | 19.97 mV |
+| Vout(pp) | From graph | — | 36.7 mV |
+
+---
+
+## Transient Gain Calculation
+
+| Parameter | Formula | Value |
+|----------|--------|------|
+| Gain (Av) | Vout(pp) / Vin(pp) | 36.7 / 19.97 |
+| Gain (Av) | — | ≈ 1.84 |
+
+---
+
+## Gain in dB
+
+| Parameter | Formula | Value |
+|----------|--------|------|
+| Gain (dB) | 20 log₁₀(1.84) | ≈ 5.3 dB |
+
+---
+
+## AC Analysis
+
+| Parameter | Value |
+|----------|------|
+| Midband Gain | ≈ 15.7 – 19 dB |
+| Phase | ≈ -180° |
+
+---
+
+## 3 dB Bandwidth
+
+| Parameter | Value |
+|----------|------|
+| 3 dB Gain | ≈ (Midband - 3 dB) |
+| Bandwidth | ≈ 38 MHz |
+
+---
+
+## Theoretical Gain Calculation
+
+| Step | Parameter | Formula | Value |
+|------|----------|--------|------|
+| 1 | Vov | VGS − VT | 0.7 − 0.366 = 0.334 V |
+| 2 | gm | 2ID / Vov | (2 × 0.61mA) / 0.334 |
+| 3 | gm | — | ≈ 3.65 mS |
+| 4 | Gain (Ad) | gm × ro | High |
+| 5 | Gain (dB) | 20 log₁₀(Ad) | ≈ 15–19 dB |
+
+---
+
+## Key Observation
+
+| Parameter | Behavior |
+|----------|---------|
+| Current distribution | Equal (balanced condition) |
+| Region | Saturation |
+| Gain type | gm × ro |
+| Load | Active (PMOS) |
+
+---
+
+## Final Conclusion
+
+- Circuit is properly biased with **Vs = -0.7 V**
+- Equal current splitting confirms correct operation  
+- Active load increases gain compared to resistive load  
+- Transient gain is lower due to large-signal behavior  
+- AC gain is higher due to small-signal approximation  
+
 
