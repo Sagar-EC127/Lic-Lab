@@ -318,5 +318,42 @@ This results in equal current distribution in the differential amplifier.
 - Without capacitor → unrealistic high-speed response  
 - With capacitor → practical amplifier with defined cutoff frequency  
 
+## Theoretical Gain Calculation 
+
+| Step | Parameter | Formula | Value |
+|------|----------|--------|------|
+| 1 | Vov | VGS - Vth | 0.7 - 0.366 = 0.334 V |
+| 2 | gm | 2ID / Vov | (2 × 0.61mA) / 0.334 |
+| 3 | gm | — | ≈ 3.65 mS |
+| 4 | RD | Given | 1.475 kΩ |
+| 5 | Gain (Ad) | gm × RD | 3.65m × 1475 |
+| 6 | Gain (Ad) | — | ≈ 5.38 |
+| 7 | Gain (dB) | 20 log₁₀(Ad) | 20 log₁₀(5.38) |
+| 8 | Theoretical Gain | — | ≈ 14.6 dB |
+| 9 | Practical Gain | From AC analysis | 15.747 dB |
+| 10 | Difference | Practical - Theoretical | ≈ 1.15 dB |
+
+---
+
+## Final Result
+
+| Quantity | Value |
+|---------|------|
+| Theoretical Gain | ≈ 14.6 dB |
+| Practical Gain | 15.747 dB |
+| Conclusion | Practical > Theoretical (due to ro effect) |
+
+## Conclusion
+
+The differential amplifier was successfully designed and analyzed using LTspice.  
+The circuit operates properly with both transistors in the **saturation region**, ensuring correct amplification.
+
+The **transient analysis** shows that for small input signals, the output is linear and undistorted, while for larger inputs, distortion occurs due to non-linear operation.
+
+The **AC analysis** gives a midband gain of **15.747 dB** with a defined bandwidth, confirming proper small-signal behavior.
+
+The **theoretical gain (≈ 14.6 dB)** is close to the **practical gain (15.747 dB)**, with a small difference due to non-ideal effects such as output resistance (ro) and parasitics.
+
+Overall, the differential amplifier provides **good amplification, proper biasing, and expected frequency response**, validating the design.
 
 
