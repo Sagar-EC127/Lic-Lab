@@ -225,6 +225,10 @@ This results in equal current distribution in the differential amplifier.
 
 <img width="1919" height="904" alt="Screenshot 2026-03-27 235244" src="https://github.com/user-attachments/assets/e3c2f8b0-fd36-4a71-b230-196851223803" />
 
+### Both waveforms (Input and output)
+
+<img width="1919" height="879" alt="Screenshot 2026-03-27 235113" src="https://github.com/user-attachments/assets/56fb7113-892c-41d6-b89f-ee4eb67be034" />
+
 ## Transient Gain Calculation
 
 ### From Input Waveform (Vin1)
@@ -264,3 +268,55 @@ This results in equal current distribution in the differential amplifier.
 | Gain (dB) | — | ≈ 15.73 dB |
 
 ---
+# AC Analysis
+## Without Capacitor 
+<img width="1919" height="906" alt="Screenshot 2026-03-28 222713" src="https://github.com/user-attachments/assets/9dc059e8-c005-47a7-90ef-90b5a0d0b554" />
+
+## With Capacitor 
+<img width="1915" height="875" alt="Screenshot 2026-03-28 221137" src="https://github.com/user-attachments/assets/424c736a-865f-4bbb-bc64-f2bb2c0886e5" />
+
+## AC Analysis Comparison (Without Capacitor vs With Capacitor)
+
+## AC Analysis Summary
+
+| Parameter | Without Capacitor | With Capacitor |
+|----------|------------------|----------------|
+| Midband Gain (Av) | 15.747 dB | 15.747 dB |
+| 3 dB Gain | 12.747 dB | 12.747 dB |
+| 3 dB Frequency (Bandwidth) | ≈ 5.08 GHz | ≈ 11.5 MHz |
+
+---
+
+## Observation
+
+### Without Capacitor
+- Very high bandwidth (GHz range)
+- Gain remains constant for large frequency range
+- No dominant pole → unrealistic ideal behavior
+
+### With Capacitor
+- Bandwidth reduces significantly (MHz range)
+- Clear roll-off after cutoff frequency
+- Capacitor introduces **dominant pole**
+
+---
+
+## Key Difference
+
+| Parameter | Without Capacitor | With Capacitor |
+|----------|------------------|----------------|
+| Bandwidth | Very high (GHz) | Limited (MHz) |
+| Stability | Less realistic | More practical |
+| Frequency response | Flat | Roll-off present |
+| Pole effect | Negligible | Dominant pole exists |
+
+---
+
+## Final Conclusion
+
+- Capacitor controls bandwidth and stabilizes the amplifier  
+- Without capacitor → unrealistic high-speed response  
+- With capacitor → practical amplifier with defined cutoff frequency  
+
+
+
