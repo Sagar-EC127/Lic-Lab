@@ -6,7 +6,7 @@
 ## Aim
 
 To design and simulate a MOSFET differential amplifier using LTspice and analyze its performance using DC analysis , transient, and AC analysis.
-## Design Specifications
+## Design Specifications (common for all circuits )
 
 | Parameter | Description | Value |
 |----------|------------|------|
@@ -81,12 +81,21 @@ The operation of the differential amplifier depends on the input conditions:
 | ID1 | ID1 = Itotal / 2 | 1.22 mA / 2 | 0.61 mA |
 | ID2 | ID2 = Itotal / 2 | 1.22 mA / 2 | 0.61 mA |
 | RD | RD = VDD / ID | 0.9 / 0.61 mA | 1.475 kΩ |
-| Vincm(max) | VDD - (ID × RD) + Vth | 0.9 - 0.9 + 0.366 | 0.366 V |
-| Vincm(min) | VSS + Vp + VGS | -0.9 - 0.7 + 0.7 | -0.9 V |
-| Vout(max) | VDD | 0.9 | 0.9 V |
-| Vout(min) | VDD - (ID × RD) | 0.9 - 0.9 | 0 V |
 
+### Input Common Mode Range (VCM)
+
+| Parameter     | Formula                  | Calculation              | Value   |
+|--------------|--------------------------|--------------------------|---------|
+| Vincm(max)   | VDD - (ID × RD) + Vth    | 0.9 - 0.9 + 0.366        | 0.366 V |
+| Vincm(min)   | VSS + Vp + VGS           | -0.9 - 0.7 + 0.7         | -0.9 V  |
 ## Reason for Equal Current Distribution
+
+### Output Common Mode Range (VOCM)
+
+| Parameter     | Formula               | Calculation      | Value  |
+|--------------|-----------------------|------------------|--------|
+| Vout(max)    | VDD                   | 0.9              | 0.9 V  |
+| Vout(min)    | VDD - (ID × RD)       | 0.9 - 0.9        | 0 V    |
 
 When the input common-mode voltage is zero (Vincm = 0), it is defined as:
 
@@ -165,3 +174,93 @@ This results in equal current distribution in the differential amplifier.
 - Large Vid → **Nonlinear region (distortion & saturation)**  
 
  As Vid exceeds √2·Vov, the circuit shifts from **current sharing → current steering**
+
+ ## Differential Input Applied (Vid)
+
+### Linear Region (First Waveform)
+
+| Quantity | Value |
+|---------|------|
+| Vin1    | +10 mV (approx) |
+| Vin2    | -10 mV (approx) |
+| Vid = Vin1 - Vin2 | ≈ 20 mV |
+| Condition | Vid < √2 · Vov |
+
+
+<img width="1919" height="879" alt="Screenshot 2026-03-27 235113" src="https://github.com/user-attachments/assets/2aa169fa-f84e-45fd-bfd7-5749ad43240d" />
+
+
+#### Graph Observation:
+
+- Output is smooth and sinusoidal  
+- Vout1 and Vout2 are symmetric  
+- No distortion (proper amplification)
+
+---
+
+### Non-Linear Region 
+
+| Quantity | Value |
+|---------|------|
+| Vin1    | +250 mV (approx) |
+| Vin2    | -250 mV (approx) |
+| Vid = Vin1 - Vin2 | ≈ 500 mV |
+| Condition | Vid > √2 · Vov |
+
+
+<img width="1915" height="871" alt="Screenshot 2026-03-28 225459" src="https://github.com/user-attachments/assets/00ed5930-93c1-46e9-aaea-1e3b2cc5be40" />
+
+#### Graph Observation:
+
+- Output shows clipping at peaks  
+- Waveform is not purely sinusoidal  
+- One side dominates (distortion occurs)
+
+## Transient gain 
+### Input 
+
+<img width="1919" height="879" alt="Screenshot 2026-03-27 235229" src="https://github.com/user-attachments/assets/d87d85b7-4326-4fea-8493-e4557220b843" />
+
+### output 
+
+<img width="1919" height="904" alt="Screenshot 2026-03-27 235244" src="https://github.com/user-attachments/assets/e3c2f8b0-fd36-4a71-b230-196851223803" />
+
+## Transient Gain Calculation
+
+### From Input Waveform (Vin1)
+
+| Parameter | Value |
+|----------|------|
+| Vmax     | +9.984 mV |
+| Vmin     | -9.986 mV |
+| Vin(pp)  | 19.97 mV |
+
+---
+
+### From Output Waveform (Vout1)
+
+| Parameter | Value |
+|----------|------|
+| Vmax     | +61.153 mV |
+| Vmin     | -61.131 mV |
+| Vout(pp) | 122.28 mV |
+
+---
+
+### Gain Calculation
+
+| Parameter | Formula | Value |
+|----------|--------|------|
+| Gain (Av) | Vout(pp) / Vin(pp) | 122.28 / 19.97 |
+| Gain (Av) | — | ≈ 6.12 |
+
+---
+
+### Gain in dB
+
+| Parameter | Formula | Value |
+|----------|--------|------|
+| Gain (dB) | 20 log₁₀(Av) | 20 log₁₀(6.12) |
+| Gain (dB) | — | ≈ 15.73 dB |
+
+---
